@@ -2,9 +2,20 @@ import {Link} from 'react-router-dom'
 import logo from "../assets/img/logo-wetick.png"
 import picture from "../assets/img/picture.png"
 import {FaAlignJustify, FaFacebookSquare, FaWhatsappSquare, FaInstagramSquare, FaTwitterSquare, FaSearch, FaMapMarkerAlt, FaArrowRight} from 'react-icons/fa'
+import React from "react";
+import axios from 'axios'
+import moment from 'moment'
 
 
 const Home = ()=> {
+    const [events, setEvents] = React.useState([])
+    React.useEffect(()=>{
+        async function getData(){
+            const {data} = await axios.get('http://localhost:8888/events')
+            setEvents(data.results)
+        }
+        getData()
+    }, [])
     return (
         <>
             <div className='h-screen'>
@@ -54,7 +65,7 @@ const Home = ()=> {
                 <div className="flex flex-col bg-[#E14D2A] bg-[url('/src/assets/img/bubble.png')] bg-no-repeat bg-cover w-full h-full">
                     <div className='flex-1 flex justify-center gap-48'>
                         <div className='flex flex-col justify-center items-center pl-10'>
-                            <div className='text-white text-6xl tracking-normal'>
+                            <div className='text-white text-6xl tracking-normal tracking-wide ml-8'>
                                 Find events you love with our
                             </div>
                             <div className='flex justify-center items-center gap-4 bg-white w-[600px] h-[75px] rounded-2xl overflow-hidden'>
@@ -69,8 +80,49 @@ const Home = ()=> {
                                 </button>
                             </div>
                         </div>
-                        <div className='flex justify-center items-center'>
+                        <div className='flex justify-center items-end'>
                             <img src={picture} />
+                        </div>
+                    </div>
+                </div>
+                <div className='flex flex-col items-center gap-6 mt-44'>
+                    <div className='flex justify-center items-center rounded-full border-none outline-none text-white bg-orange-400 border h-7 w-[150px]'>
+                        EVENT
+                    </div>
+                    <div className='font-semibold text-4xl text-black'>
+                        Event For You
+                    </div>
+                    <div className='flex justify-end items-center w-full '>
+                        <div className='flex flex-end gap-5 w-[95%] scrollbar-hide overflow-scroll overflow-y-hidden  object-cover '>
+                        {events.map(event => {
+                        return (
+                                <div key={event.id}>
+                                    <div className="overflow-hidden rounded-3xl w-[260px] h-[350px] mt-14 relative bg-green-400" >
+                                        <img className="w-full h-full object-cover" src={`http://localhost:8888/uploads/${event.picture}`}/>
+                                        <div>
+                                            <div className="absolute bottom-0 text-white flex flex-col gap-5 p-5 bg-gradient-to-t from-[#000000] from-5%">
+                                            <div>{moment(event.date).format('LLLL')}</div>
+                                            <div className="font-bold text-2xl tracking-wide">{event.title}</div>
+                                            <div className="flex">
+                                                <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
+                                                    <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile1"/>
+                                                </div>
+                                                <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
+                                                    <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile2"/>
+                                                </div>
+                                                <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
+                                                    <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile3"/>
+                                                </div>
+                                                <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
+                                                    <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile4"/>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })}
                         </div>
                     </div>
                 </div>

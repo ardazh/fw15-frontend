@@ -5,20 +5,21 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+    },
   },
-  daisyui: {
-    // themes: [
-    //   {
-    //     defaultTheme: {
-    //       primary: '',
-    //       neutral: '',
-    //     }
-    //   }
-    // ]
+  daishyui:{
+    themes:[
+      {
+        // defaultTheme:{
+        //   "primary":"#4c3f91",
+        //   "secondary":"#373a42",
+        // }
+      }
+    ]
   },
   plugins: [
-    require("daisyui")
-  ],
+    require("daisyui"),
+    require('tailwind-scrollbar-hide')
+  ]
 }
-
