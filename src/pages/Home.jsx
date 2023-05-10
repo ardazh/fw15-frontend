@@ -1,7 +1,9 @@
 import {Link} from 'react-router-dom'
 import logo from "../assets/img/logo-wetick.png"
 import picture from "../assets/img/picture.png"
-import {FaAlignJustify, FaFacebookSquare, FaWhatsappSquare, FaInstagramSquare, FaTwitterSquare, FaSearch, FaMapMarkerAlt, FaArrowRight} from 'react-icons/fa'
+import {FaAlignJustify, FaFacebookSquare, FaWhatsappSquare, FaInstagramSquare, FaTwitterSquare, FaSearch, FaMapMarkerAlt, FaArrowRight, FaArrowLeft} from 'react-icons/fa'
+import {GoPrimitiveDot} from 'react-icons/Go'
+import {HiOutlineMinus} from 'react-icons/Hi'
 import React from "react";
 import axios from 'axios'
 import moment from 'moment'
@@ -54,7 +56,7 @@ const Home = ()=> {
                     </div>
                     <div className="flex items-center gap-3.5">
                         <div>
-                            <Link className='text-primary fond-bold' to="/login">Login</Link>
+                            <Link className='text-black fond-bold' to="/login">Login</Link>
                         </div>
                         <div>
                             <button className='btn bg-[#FD841F] text-[#FFFFFF] border-orange-400 hover:border-primary hover:bg-primary'>Sign Up</button>
@@ -86,11 +88,75 @@ const Home = ()=> {
                     </div>
                 </div>
                 <div className='flex flex-col items-center gap-6 mt-44'>
-                    <div className='flex justify-center items-center rounded-full border-none outline-none text-white bg-orange-400 border h-7 w-[150px]'>
-                        EVENT
+                    <div className='flex justify-center items-center rounded-full border-none outline-none text-white bg-orange-400 border h-7 w-[150px] gap-3'>
+                        <i>
+                            <HiOutlineMinus size={50} />
+                        </i>
+                        <div>
+                            EVENT
+                        </div>
                     </div>
-                    <div className='font-semibold text-4xl text-black'>
+                    <div className='font-semibold text-4xl text-black mt-6'>
                         Event For You
+                    </div>
+                    <div className='flex items-center gap-16 mt-[50px]'>
+                        <button className='flex justify-center rounded-lg items-center bg-white h-11 w-11'>
+                            <i className='text-[#C1C5D0]'>
+                                <FaArrowLeft size={20} />
+                            </i>
+                        </button>
+                        <div className='flex flex-col items-center text-[#C1C5D0]'>
+                            <div className='text-sm'>
+                                30
+                            </div>
+                            <div className='text-xs'>
+                                Sun
+                            </div>
+                        </div>
+                        <div className='flex flex-col items-center text-[#C1C5D0]'>
+                            <div className='text-sm'>
+                                1
+                            </div>
+                            <div className='text-xs'>
+                                Mon
+                            </div>
+                        </div>
+                        <div className='flex justify-center items-center border border-[#FF8900] rounded-lg h-[75px] w-[50px]'>
+                            <div className='flex flex-col items-center text-[#FF8900]'>
+                                <div className='text-sm'>
+                                    2
+                                </div>
+                                <div className='text-xs'>
+                                    Tue
+                                </div>
+                                <div>
+                                    <i>
+                                        <GoPrimitiveDot />
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex flex-col items-center text-[#C1C5D0]'>
+                            <div className='text-sm'>
+                                3
+                            </div>
+                            <div className='text-xs'>
+                                Wed
+                            </div>
+                        </div>
+                        <div className='flex flex-col items-center text-[#C1C5D0]'>
+                            <div className='text-sm'>
+                                4
+                            </div>
+                            <div className='text-xs'>
+                                Thu
+                            </div>
+                        </div>
+                        <button className='flex justify-center rounded-lg items-center bg-orange-400 h-11 w-11'>
+                            <i className='text-white'>
+                                <FaArrowRight size={25} />
+                            </i>
+                        </button>
                     </div>
                     <div className='flex justify-end items-center w-full '>
                         <div className='flex flex-end gap-5 w-[95%] scrollbar-hide overflow-scroll overflow-y-hidden  object-cover '>
@@ -125,6 +191,156 @@ const Home = ()=> {
                         })}
                         </div>
                     </div>
+                    <div className='flex justify-center items-center border border-[#FF8900] rounded-md w-[255px] h-10 text-[#FF8900] mt-[17px]'>
+                        <button className='border-none outline-none'>
+                            See All
+                        </button>
+                    </div>
+                    <div className="px-12">
+                        <div className="bg-[#FFE15D] mt-44 px-[68px] py-[74px] border rounded-3xl bg-[url('/src/assets/img/bubble.png')] bg-no-repeat bg-cover">
+                        <div className="bdr-event bg-[#FD841F] mt-44">
+                            {/* <div>
+                                <hr style="width: 30px; height: 3px; background-color: #FD841F; margin-right: 10px;"/>
+                            </div> */}
+                            <div className="font-semibold text-xs tracking-[3px]">
+                                LOCATION
+                            </div>
+                        </div>
+                        <div className="flex">
+                            <div className="text-4xl flex flex-col tracking-wide w-[214px] mt-6 py-1 tracking-wide">
+                                Discover<br/> Events<br/> Near You<br/>
+                            </div>
+                            <div className="flex-col justify-center text-center ml-[86px]">
+                                <img src="" alt="jakarta"/>
+                                Jakarta 
+                            </div>
+                            <div className="flex-col justify-center text-center ml-[70px]">
+                                <img src="" alt="bandung"/>
+                                Bandung 
+                            </div>
+                            <div className="flex-col justify-center text-center ml-[70px]">
+                                <img src="" alt="bali"/>
+                                Bali 
+                            </div>
+                        </div>
+                        <div className="flex">
+                            <div className="flex-col justify-center text-center mt-12">
+                                <img src="" alt="aceh"/>
+                                Aceh 
+                            </div>
+                            <div className="flex-col justify-center text-center ml-[70px] mt-12">
+                                <img src="" alt="solo"/>
+                                Solo 
+                            </div>
+                            <div className="flex-col justify-center text-center ml-[70px] mt-12">
+                                <img src="" alt="yogyakarta"/>
+                                Yogyakarta 
+                            </div>
+                            <div className="flex-col justify-center text-center ml-[70px] mt-12">
+                                <img src="" alt="semarang"/>
+                                Semarang 
+                            </div>
+                        </div>
+                        <div className="flex justify-center mt-[89px] mb-[73px]">
+                            <button className="w-[255px] h-[40px] bg-white rounded-xl text-sm">
+                                See All
+                            </button>
+                        </div>
+                        </div>
+                    </div>
+                    <div className='flex justify-center items-center rounded-full border-none outline-none text-white bg-orange-400 border h-7 w-[150px] gap-3 mt-[175px]'>
+                        <i>
+                            <HiOutlineMinus size={40} />
+                        </i>
+                        <div>
+                            CATEGORY
+                        </div>
+                    </div>
+                    <div className='font-semibold text-4xl text-black mt-6'>
+                        Browse Events By Category
+                    </div>
+                    <div>
+                        <ul className="flex flex-row justify-center gap-24 mt-12">
+                            <li>
+                                Music
+                            </li>
+                            <li>
+                                Arts
+                            </li>
+                            <li>
+                                Outdoors
+                            </li>
+                            <li>
+                                Workshop
+                            </li>
+                            <li className='text-[#FF8900]'>
+                                Sport
+                                <i className='flex justify-center'>
+                                    <HiOutlineMinus size={30} />
+                                </i>
+                            </li>
+                            <li>
+                                Festival
+                            </li>
+                            <li>
+                                Fashion
+                            </li>
+                        </ul>
+                    </div>
+                    <div className='flex gap-6 justify-center mt-14'>
+                        <button className='flex justify-center rounded-lg items-center bg-white h-11 w-11'>
+                            <i className='text-[#C1C5D0]'>
+                                <FaArrowLeft size={20} />
+                            </i>
+                        </button>
+                        <div className="overflow-hidden rounded-3xl w-[300px] h- mt-14 relative">
+                        <img className="w-full h-3/6 object-cover" src="" alt="banner1"/>
+                        <div>
+                            <div className="absolute bottom-0 h-3/6 text-white flex flex-col justify-center bg-[#E14D2A] p-5">
+                                <div className="text-sm">Wed, 15 Nov, 4:00 PM</div>
+                                <div className="font-bold text-[22px] tracking-wide">Sights & Sounds Exhibition</div>
+                            </div>
+                            <div className="absolute flex -mt-4 ml-5">
+                                <div className="w-7 h-7 rounded-full overflow-hidden border-2 -ml-2">
+                                    <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile1"/>
+                                </div>
+                                <div className="w-7 h-7 rounded-full overflow-hidden border-2 -ml-2">
+                                    <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile2"/>
+                                </div>
+                                <div className="w-7 h-7 rounded-full overflow-hidden border-2 -ml-2">
+                                    <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile3"/>
+                                </div>
+                                <div className="w-7 h-7 rounded-full overflow-hidden border-2 -ml-2">
+                                    <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile4"/>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <button className='flex justify-center rounded-lg items-center bg-orange-400 h-11 w-11'>
+                            <i className='text-[#C1C5D0]'>
+                                <FaArrowRight size={20} />
+                            </i>
+                        </button>
+                    </div>
+                    <div className='bg-[#FD841F] mt-44'>
+                        <div className='flex justify-center items-center rounded-full border-none outline-none text-white bg-orange-400 border h-7 w-[150px] gap-3 mt-[175px]'>
+                                    <i>
+                                        <HiOutlineMinus size={40} />
+                                    </i>
+                                    <div>
+                                        PARTNER
+                                    </div>
+                                    <div className="font-semibold text-4xl tracking-[1px] mt-6">
+                                        Our Trusted Partners
+                                    </div>
+                                    <div className="text-xs tracking-[0.5px] mt-3.5">
+                                        By companies like :
+                                    </div>
+                                    <div>
+
+                                    </div>
+                                </div>
+                        </div>
                 </div>
                 <footer className="bg-white md:bg-[#F4F7FF] pt-20">
                 <div className="flex flex-col gap-7 px-7 md:px-32">
