@@ -1,13 +1,43 @@
 import {Link} from 'react-router-dom'
 import {FcGoogle} from 'react-icons/fc'
 import {FaFacebook} from 'react-icons/fa'
+import {useNavigate} from 'react-router-dom'
+import React from 'react'
+import http from '../helpers/http'
 
 const Login = ()=> {
+    const navigate = useNavigate()
+    const [errorMessage, setErrorMessage] = React.useState('')
+    const [token, setToken] = React.useState('')
+    const doLogin = async(event)=> {
+        event.preventDefault()
+        setErrorMessage('')
+        try{
+            const {value: email} = event.target.email
+            const {value: password} = event.target.password
+            const body = new URLSearchParams({email, password}).toString()
+            const {data} = await http().post('http://localhost:8888/auth/login')
+            window.localStorage.setItem('token', data.results.token)
+            setToken(data.resluts.token)
+        }catch(err){
+            const message = err?.response.data.message
+            if(message){
+                setErrorMessage(message)
+            }
+        }
+
+    }
+    React.useEffect(() =>{
+        if(token){
+            navigate('/')
+        }
+    }, [token, navigate])
+
     return (
         <div className="flex h-screen">
             <div className="hidden md:flex flex-1 bg-orange-400"></div>
             <div className="max-w-md w-full flex justify-center items-center">
-                <form className="w-[80%] flex flex-col gap-5">
+                <form onSubmit={doLogin} className="w-[80%] flex flex-col gap-5">
                     <div>
                         WeTick
                     </div>
@@ -17,6 +47,10 @@ const Login = ()=> {
                     <div>
                         Hi, Welcome back to Urticket!
                     </div>
+                    {errorMessage && 
+                    (<div>
+                        <div className='alert alert-error'>{errorMessage}</div>
+                    </div>)}
                     <div>
                         <input placeholder="Email" className="input input-bordered w-full" type="email" name="email" />
                     </div>

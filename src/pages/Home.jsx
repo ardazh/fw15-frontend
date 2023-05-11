@@ -1,5 +1,6 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import { Link } from 'react-router-dom'
 import picture from "../assets/img/picture.png"
 import { FaSearch, FaMapMarkerAlt, FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 import { GoPrimitiveDot } from 'react-icons/Go'
@@ -7,9 +8,14 @@ import { HiOutlineMinus } from 'react-icons/Hi'
 import React from "react";
 import axios from 'axios'
 import moment from 'moment'
+import http from '../helpers/http'
+import { useNavigate } from 'react-router-dom'
 
 
 const Home = () => {
+    const navigate = useNavigate()
+    const [profile, setProfile] = React.useState({})
+    const [token, setToken] = React.useState('')
     const [events, setEvents] = React.useState([])
     const [cities, setCities] = React.useState([])
     const [categories, setCategories] = React.useState([])
@@ -21,7 +27,22 @@ const Home = () => {
             setEvents(data.results)
         }
         getData()
+        async function getProfileData(){
+            const token = window.localStorage.getItem('token')
+            const {data} = await http(token).get('/profile')
+            setProfile(data.results)
+        }
+        getProfileData()
+        if(window.localStorage.getItem('token')){
+            setToken(window.localStorage.getItem('token'))
+        }
     }, [])
+
+    const doLogout = ()=> {
+        window.localStorage.removeItem('token')
+        navigate('/login')
+    }
+
     React.useEffect(() => {
         async function getDataCities() {
             const { data } = await axios.get('http://localhost:8888/city')
@@ -53,6 +74,12 @@ const Home = () => {
     return (
         <>
             <div className='h-screen'>
+                {token ? <div className='text-7xl'>
+                    <div>{profile?.fullName}</div>
+                    <button onClick={doLogout} className='btn btn-primary'>Logout</button>
+                    </div> : <div>
+                    <Link className="btn btn-primary" to="/login">Login</Link>    
+                    </div>}
                 <div>
                     <Header />
                 </div>
