@@ -20,7 +20,7 @@ const App = ()=> {
     <Route path="/login" element={<Login />} />
     <Route path="/sign-up" element={<Signup />} />
     <Route path="/forgot-password" element={<ForgotPassword />} />
-    <Route path="/detail-events" element={<DetailEvents />} />
+    <Route path="/detail-events/:id" element={<DetailEvents />} />
     <Route path="/booking" element={<Booking />} />
     <Route path="/payment" element={<Payment />} />
     <Route path="/edit-profile" element={<EditProfile />} />

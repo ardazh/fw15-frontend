@@ -1,10 +1,24 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { FiHeart, FiClock, FiMapPin } from 'react-icons/fi'
+import { useParams } from 'react-router-dom'
+import React from 'react'
+import http from '../helpers/http'
 
 const DetailEvents = () => {
+    const { id } = useParams()
+    const [event, setEvent] = React.useState({})
+    React.useEffect(() => {
+        const getEventData = async (id) => {
+            const { data } = await http().get(`/events/${id}`)
+            setEvent(data.results)
+        }
+        if (id) {
+            getEventData(id)
+        }
+    }, [id])
     return (
-        <>
+        <div>
             <div>
                 <Header />
             </div>
@@ -13,7 +27,7 @@ const DetailEvents = () => {
                     <div className="flex flex-col md:flex-row justify-center px-7 md:px-12 gap-10 bg-white py-14 mx-0 sm:mx-12 md:mx-24 md:mt-16 md:rounded-3xl">
                         <section className="flex flex-col gap-12 justify-start items-center w-full md:w-[40%]">
                             <div className="rounded-3xl overflow-hidden ">
-                                <img src="" alt="picture1" />
+                                <img src={`http://localhost:8888/uploads/${event?.picture}`} alt="picture1" />
                             </div>
                             <div className="flex justify-center gap-2">
                                 <div>
@@ -28,7 +42,7 @@ const DetailEvents = () => {
                         </section>
                         <section className="w-full md:w-[60%]">
                             <div className="text-2xl tracking-[2px] mb-7">
-                                Sights & Sounds Exhibition
+                                {event?.title}
                             </div>
                             <div className="flex justify-between gap-3 text-sm font-medium tracking-[1px] mb-7 lg:max-w-[70%]">
                                 <div className="flex gap-2">
@@ -38,7 +52,7 @@ const DetailEvents = () => {
                                         </i>
                                     </div>
                                     <div>
-                                        Jakarta, Indonesia
+                                        {event?.location}
                                     </div>
                                 </div>
                                 <div className="flex gap-2">
@@ -48,7 +62,7 @@ const DetailEvents = () => {
                                         </i>
                                     </div>
                                     <div>
-                                        Wed, 15 Nov, 4:00 PM
+                                        {event?.date}
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +117,7 @@ const DetailEvents = () => {
             <div>
                 <Footer />
             </div>
-        </>
+        </div>
     )
 }
 

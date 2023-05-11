@@ -1,34 +1,34 @@
-import {Link} from 'react-router-dom'
-import {FcGoogle} from 'react-icons/fc'
-import {FaFacebook} from 'react-icons/fa'
-import {useNavigate} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { FcGoogle } from 'react-icons/fc'
+import { FaFacebook } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 import React from 'react'
 import http from '../helpers/http'
 
-const Login = ()=> {
+const Login = () => {
     const navigate = useNavigate()
     const [errorMessage, setErrorMessage] = React.useState('')
     const [token, setToken] = React.useState('')
-    const doLogin = async(event)=> {
+    const doLogin = async (event) => {
         event.preventDefault()
         setErrorMessage('')
-        try{
-            const {value: email} = event.target.email
-            const {value: password} = event.target.password
-            const body = new URLSearchParams({email, password}).toString()
-            const {data} = await http().post('http://localhost:8888/auth/login')
+        try {
+            const { value: email } = event.target.email
+            const { value: password } = event.target.password
+            const body = new URLSearchParams({ email, password }).toString()
+            const { data } = await http().post('http://localhost:8888/auth/login', body)
             window.localStorage.setItem('token', data.results.token)
-            setToken(data.resluts.token)
-        }catch(err){
-            const message = err?.response.data.message
-            if(message){
+            setToken(data.results.token)
+        } catch (err) {
+            const message = err?.response?.data?.message
+            if (message) {
                 setErrorMessage(message)
             }
         }
 
     }
-    React.useEffect(() =>{
-        if(token){
+    React.useEffect(() => {
+        if (token) {
             navigate('/')
         }
     }, [token, navigate])
@@ -47,10 +47,10 @@ const Login = ()=> {
                     <div>
                         Hi, Welcome back to Urticket!
                     </div>
-                    {errorMessage && 
-                    (<div>
-                        <div className='alert alert-error'>{errorMessage}</div>
-                    </div>)}
+                    {errorMessage &&
+                        (<div>
+                            <div className='alert alert-error'>{errorMessage}</div>
+                        </div>)}
                     <div>
                         <input placeholder="Email" className="input input-bordered w-full" type="email" name="email" />
                     </div>
@@ -68,10 +68,10 @@ const Login = ()=> {
                     </div>
                     <div className='flex justify-center gap-5'>
                         <button className='btn btn-secondary bg-white border-primary hover:border-primary hover:bg-primary w-24'>
-                            <FcGoogle size={25}/>
+                            <FcGoogle size={25} />
                         </button>
                         <button className='btn btn-secondary bg-white border-primary hover:border-primary hover:bg-primary w-24'>
-                        <FaFacebook color='#4267B2' size={25}/>
+                            <FaFacebook color='#4267B2' size={25} />
                         </button>
                     </div>
                 </form>

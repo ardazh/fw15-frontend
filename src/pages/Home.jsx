@@ -1,6 +1,5 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { Link } from 'react-router-dom'
 import picture from "../assets/img/picture.png"
 import { FaSearch, FaMapMarkerAlt, FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 import { GoPrimitiveDot } from 'react-icons/Go'
@@ -8,14 +7,10 @@ import { HiOutlineMinus } from 'react-icons/Hi'
 import React from "react";
 import axios from 'axios'
 import moment from 'moment'
-import http from '../helpers/http'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 const Home = () => {
-    const navigate = useNavigate()
-    const [profile, setProfile] = React.useState({})
-    const [token, setToken] = React.useState('')
     const [events, setEvents] = React.useState([])
     const [cities, setCities] = React.useState([])
     const [categories, setCategories] = React.useState([])
@@ -27,21 +22,7 @@ const Home = () => {
             setEvents(data.results)
         }
         getData()
-        async function getProfileData(){
-            const token = window.localStorage.getItem('token')
-            const {data} = await http(token).get('/profile')
-            setProfile(data.results)
-        }
-        getProfileData()
-        if(window.localStorage.getItem('token')){
-            setToken(window.localStorage.getItem('token'))
-        }
     }, [])
-
-    const doLogout = ()=> {
-        window.localStorage.removeItem('token')
-        navigate('/login')
-    }
 
     React.useEffect(() => {
         async function getDataCities() {
@@ -74,12 +55,6 @@ const Home = () => {
     return (
         <>
             <div className='h-screen'>
-                {token ? <div className='text-7xl'>
-                    <div>{profile?.fullName}</div>
-                    <button onClick={doLogout} className='btn btn-primary'>Logout</button>
-                    </div> : <div>
-                    <Link className="btn btn-primary" to="/login">Login</Link>    
-                    </div>}
                 <div>
                     <Header />
                 </div>
@@ -181,31 +156,33 @@ const Home = () => {
                         <div className='flex flex-end gap-5 w-[95%] scrollbar-hide overflow-scroll overflow-y-hidden object-cover '>
                             {events.map(event => {
                                 return (
-                                    <div key={event.id}>
-                                        <div className="overflow-hidden rounded-3xl w-[260px] h-[350px] mt-14 relative bg-green-400" >
-                                            <img className="w-full h-full object-cover" src={`http://localhost:8888/uploads/${event.picture}`} />
-                                            <div>
-                                                <div className="absolute bottom-0 text-white flex flex-col gap-5 p-5 bg-gradient-to-t from-[#000000] from-5%">
-                                                    <div>{moment(event.date).format('LLLL')}</div>
-                                                    <div className="font-bold text-2xl tracking-wide">{event.title}</div>
-                                                    <div className="flex">
-                                                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
-                                                            <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile1" />
-                                                        </div>
-                                                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
-                                                            <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile2" />
-                                                        </div>
-                                                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
-                                                            <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile3" />
-                                                        </div>
-                                                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
-                                                            <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile4" />
+                                    <Link to={`/detail-events/${event.id}`} key={`event-${event.id}`}>
+                                        <div>
+                                            <div className="overflow-hidden rounded-3xl w-[260px] h-[350px] mt-14 relative bg-green-400" >
+                                                <img className="w-full h-full object-cover" src={`http://localhost:8888/uploads/${event.picture}`} />
+                                                <div>
+                                                    <div className="absolute bottom-0 text-white flex flex-col gap-5 p-5 bg-gradient-to-t from-[#000000] from-5%">
+                                                        <div>{moment(event.date).format('LLLL')}</div>
+                                                        <div className="font-bold text-2xl tracking-wide">{event.title}</div>
+                                                        <div className="flex">
+                                                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
+                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile1" />
+                                                            </div>
+                                                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
+                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile2" />
+                                                            </div>
+                                                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
+                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile3" />
+                                                            </div>
+                                                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
+                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile4" />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 )
                             })}
                         </div>

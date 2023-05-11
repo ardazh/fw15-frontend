@@ -1,8 +1,32 @@
-import { Link } from 'react-router-dom'
 import logo from "../assets/img/logo-wetick.png"
 import { FaAlignJustify } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import React from 'react'
+import http from '../helpers/http'
 
 const Header = () => {
+    const [profile, setProfile] = React.useState({})
+    const [token, setToken] = React.useState('')
+    const navigate = useNavigate()
+
+    React.useEffect(() => {
+        async function getProfileData() {
+            const token = window.localStorage.getItem('token')
+            const { data } = await http(token).get('/profile')
+            setProfile(data.results)
+        }
+        getProfileData()
+        if (window.localStorage.getItem('token')) {
+            setToken(window.localStorage.getItem('token'))
+        }
+    }, [])
+
+    const doLogout = () => {
+        window.localStorage.removeItem('token')
+        navigate('/login')
+    }
+
     return (
         <header className="bg-white">
             <div className="flex md:flex-row flex-col justify-between items-center min-h-[6rem] px-5 md:px-12 text-sm">
@@ -37,14 +61,17 @@ const Header = () => {
                         </li>
                     </ul>
                 </div>
-                <div className="flex items-center gap-3.5">
+                {token ? <div className='text-2xl'>
+                    <div>{profile?.fullName}</div>
+                    <button onClick={doLogout} className='btn btn-primary'>Logout</button>
+                </div> : <div className="flex items-center gap-3.5">
                     <div>
                         <Link className='text-black fond-bold' to="/login">Login</Link>
                     </div>
                     <div>
                         <button className='btn bg-[#FD841F] text-[#FFFFFF] border-orange-400 hover:border-primary hover:bg-primary'>Sign Up</button>
                     </div>
-                </div>
+                </div>}
             </div>
         </header>
     )
