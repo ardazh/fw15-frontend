@@ -54,7 +54,7 @@ const Home = () => {
     }, [])
     return (
         <>
-            <div className='h-screen'>
+            <div className='h-screen bg-primary'>
                 <div>
                     <Header />
                 </div>

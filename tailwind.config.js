@@ -8,13 +8,13 @@ export default {
     extend: {
     },
   },
-  daishyui:{
-    themes:[
+  daisyui: {
+    themes: [
       {
-        // defaultTheme:{
-        //   "primary":"#4c3f91",
-        //   "secondary":"#373a42",
-        // }
+        defaultTheme: {
+          "primary": "#4c3f91",
+          "secondary": "#373a42",
+        }
       }
     ]
   },

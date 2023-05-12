@@ -13,8 +13,10 @@ const Header = () => {
     React.useEffect(() => {
         async function getProfileData() {
             const token = window.localStorage.getItem('token')
-            const { data } = await http(token).get('/profile')
-            setProfile(data.results)
+            if (token) {
+                const { data } = await http(token).get('/profile')
+                setProfile(data.results)
+            }
         }
         getProfileData()
         if (window.localStorage.getItem('token')) {
