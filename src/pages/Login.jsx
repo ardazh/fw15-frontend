@@ -6,6 +6,7 @@ import { Formik } from 'formik'
 import React from 'react'
 import http from '../helpers/http'
 import * as Yup from 'yup'
+import propTypes from 'prop-types'
 
 const validationSchema = Yup.object({
     email: Yup.string().email('Email is Invalid'),
@@ -85,6 +86,18 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
     )
 }
 
+FormLogin.propTypes = {
+    values: propTypes.objectOf(propTypes.string),
+    errors: propTypes.objectOf(propTypes.string),
+    touched: propTypes.objectOf(propTypes.bool),
+    handleBlur: propTypes.fucn,
+    handleChange: propTypes.fucn,
+    handleSubmit: propTypes.fucn,
+    isSubmitting: propTypes.bool,
+    warningMessage: propTypes.string,
+    errorMessage: propTypes.string
+}
+
 const Login = () => {
     const location = useLocation()
     const navigate = useNavigate()
@@ -103,7 +116,7 @@ const Login = () => {
         try {
             const { email, password } = values
             const body = new URLSearchParams({ email, password }).toString()
-            const { data } = await http().post('http://localhost:8888/auth/login', body)
+            const { data } = await http().post('/auth/login', body)
             window.localStorage.setItem('token', data.results.token)
             setSubmitting(false)
             setToken(data.results.token)
