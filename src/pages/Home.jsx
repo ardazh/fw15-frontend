@@ -7,6 +7,7 @@ import { HiOutlineMinus } from 'react-icons/Hi'
 import React from "react";
 import axios from 'axios'
 import moment from 'moment'
+import http from '../helpers/http'
 import { Link } from 'react-router-dom'
 
 
@@ -14,43 +15,37 @@ const Home = () => {
     const [events, setEvents] = React.useState([])
     const [cities, setCities] = React.useState([])
     const [categories, setCategories] = React.useState([])
-    // const [eventCategories, setEventCategories] = React.useState([])
+    const [eventCategories, setEventCategories] = React.useState([])
     const [partners, setPartners] = React.useState([])
+    async function getDataEventCategory(name) {
+        const { data } = await http().get('/events?limit=3', { params: { searchCategory: name } })
+        setEventCategories(data.results)
+    }
     React.useEffect(() => {
         async function getData() {
             const { data } = await axios.get('http://localhost:8888/events')
             setEvents(data.results)
         }
         getData()
-    }, [])
+        getDataEventCategory()
 
-    React.useEffect(() => {
         async function getDataCities() {
-            const { data } = await axios.get('http://localhost:8888/city')
+            const { data } = await http().get('/city')
             setCities(data.results)
         }
         getDataCities()
-    }, [])
-    React.useEffect(() => {
-        async function getDataCategory() {
-            const { data } = await axios.get('http://localhost:8888/category')
-            setCategories(data.results)
-        }
-        getDataCategory()
-    }, [])
-    // React.useEffect(() => {
-    //     async function getDataEventCategory() {
-    //         const { data } = await axios.get('http://localhost:8888/eventCategory')
-    //         setEventCategories(data.results)
-    //     }
-    //     getDataEventCategory()
-    // }, [])
-    React.useEffect(() => {
+
         async function getPartners() {
-            const { data } = await axios.get('http://localhost:8888/partners')
+            const { data } = await http().get('/partners')
             setPartners(data.results)
         }
         getPartners()
+
+        async function getDataCategory() {
+            const { data } = await http().get('/category')
+            setCategories(data.results)
+        }
+        getDataCategory()
     }, [])
     return (
         <>
@@ -244,48 +239,46 @@ const Home = () => {
                             {categories.map((category) => {
                                 return (
                                     <div key={`categories-${category.id}`}>
-                                        <button className='hover:text-primary hover:border-b-2 hover:border-primary'>
+                                        <button onClick={() => getDataEventCategory(category.name)} className='hover:text-primary hover:border-b-2 hover:border-primary'>
                                             {category.name}
                                         </button>
                                     </div>
                                 )
                             })}
                         </div>
-                    </div>
-                    <div className='flex gap-6 justify-center mt-14'>
-                        <button className='flex justify-center rounded-lg items-center bg-white h-11 w-11'>
-                            <i className='text-[#C1C5D0]'>
-                                <FaArrowLeft size={20} />
-                            </i>
-                        </button>
-                        <div className="overflow-hidden rounded-3xl w-[300px] h- mt-14 relative">
-                            <img className="w-full h-3/6 object-cover" src="" alt="banner1" />
-                            <div>
-                                <div className="absolute bottom-0 h-3/6 text-white flex flex-col justify-center bg-[#E14D2A] p-5">
-                                    <div className="text-sm">Wed, 15 Nov, 4:00 PM</div>
-                                    <div className="font-bold text-[22px] tracking-wide">Sights & Sounds Exhibition</div>
-                                </div>
-                                <div className="absolute flex -mt-4 ml-5">
-                                    <div className="w-7 h-7 rounded-full overflow-hidden border-2 -ml-2">
-                                        <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile1" />
-                                    </div>
-                                    <div className="w-7 h-7 rounded-full overflow-hidden border-2 -ml-2">
-                                        <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile2" />
-                                    </div>
-                                    <div className="w-7 h-7 rounded-full overflow-hidden border-2 -ml-2">
-                                        <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile3" />
-                                    </div>
-                                    <div className="w-7 h-7 rounded-full overflow-hidden border-2 -ml-2">
-                                        <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile4" />
-                                    </div>
-                                </div>
-                            </div>
+                        <div className='flex gap-5 mt-12'>
+                            {eventCategories.map((event) => {
+                                return (
+                                    <Link to={`/detail-events/${event.id}`} key={`event-category-${event.id}`}>
+                                        <div>
+                                            <div className="overflow-hidden rounded-3xl w-64 h-52 mt-14 relative bg-green-400">
+                                                <img className="w-full h-full object-cover" src={`http://localhost:8888/uploads/${event.picture}`} />
+                                                <div>
+                                                    <div className="absolute bottom-0 text-white flex flex-col gap-3 p-5 bg-gradient-to-t from-[#000000] from-5%">
+                                                        <div>{moment(event.date).format('LLLL')}</div>
+                                                        <div className="font-bold text-xs tracking-wide">{event.title}</div>
+                                                        <div className="flex">
+                                                            <div className="w-8 h-8 rounded-full overflow-hidden border-2 -ml-2">
+                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile1" />
+                                                            </div>
+                                                            <div className="w-8 h-8 rounded-full overflow-hidden border-2 -ml-2">
+                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile2" />
+                                                            </div>
+                                                            <div className="w-8 h-8 rounded-full overflow-hidden border-2 -ml-2">
+                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile3" />
+                                                            </div>
+                                                            <div className="w-8 h-8 rounded-full overflow-hidden border-2 -ml-2">
+                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile4" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                )
+                            })}
                         </div>
-                        <button className='flex justify-center rounded-lg items-center bg-orange-400 h-11 w-11'>
-                            <i className='text-[#C1C5D0]'>
-                                <FaArrowRight size={20} />
-                            </i>
-                        </button>
                     </div>
                     <div className="flex flex-col w-full items-center h-[450px] bg-[#FD841F] mt-44 bg-[url('/src/assets/img/bubble.png')] bg-no-repeat bg-cover">
                         <div className='flex justify-center items-center rounded-full border-none outline-none text-white bg-orange-400 border h-7 w-[150px] gap-3 mt-[85px] text-[#FFFFFF]'>
