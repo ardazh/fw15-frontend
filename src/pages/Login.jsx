@@ -3,13 +3,17 @@ import { FcGoogle } from 'react-icons/fc'
 import { FaFacebook } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { Formik } from 'formik'
+import picture from '../assets/img/picture.png'
+import logo from '../assets/img/logo-wetick.png'
 import React from 'react'
-import http from '../helpers/http'
+// import http from '../helpers/http'
 import * as Yup from 'yup'
 import propTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { clearMessage, login, setErrorMessage } from '../redux/reducers/auth'
+import { clearMessage } from '../redux/reducers/auth'
+
+import { asyncLoginAction } from '../redux/actions/auth'
 
 const validationSchema = Yup.object({
     email: Yup.string().email('Email is Invalid'),
@@ -21,14 +25,20 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
     const warningMessage = useSelector(state => state.auth.warningMessage)
 
     return (
-        <form onSubmit={handleSubmit} className="w-[80%] flex flex-col gap-5">
-            <div>
-                WeTick
-            </div>
-            <div>
+        <form onSubmit={handleSubmit} className='w-[80%] flex flex-col gap-5'>
+            <Link to='/' className='flex text-2xl'>
+                <img src={logo} alt='Logo Wetick' />
+                <span className='flex items-center text-[#E14D2A]'>
+                            we
+                </span>
+                <span className='flex items-center text-[#48E0E4]'>
+                            tick
+                </span>
+            </Link>
+            <div className='text-lg text-black'>
                 Sign In
             </div>
-            <div>
+            <div className='text-[10px] text-black'>
                 Hi, Welcome back to Urticket!
             </div>
             {errorMessage &&
@@ -41,10 +51,10 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
                 </div>)}
             <div className='from-control'>
                 <input
-                    placeholder="Email"
-                    className={`input input-bordered w-full${errors.email && touched.email && "input-error"}`}
-                    type="email"
-                    name="email"
+                    placeholder='Email'
+                    className={`input input-bordered w-full${errors.email && touched.email && 'input-error'}`}
+                    type='email'
+                    name='email'
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.email}
@@ -59,10 +69,10 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
             </div>
             <div className='from-control'>
                 <input
-                    placeholder="password"
-                    className={`input input-bordered w-full${errors.password && touched.password && "input-error"}`}
-                    type="password"
-                    name="password"
+                    placeholder='password'
+                    className={`input input-bordered w-full${errors.password && touched.password && 'input-error'}`}
+                    type='password'
+                    name='password'
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.password}
@@ -76,12 +86,12 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
                 )}
             </div>
             <div className='text-right'>
-                <Link className='text-primary fond-bold' to="/forgot-password">Forgot Password?</Link>
+                <Link className='text-primary fond-bold' to='/forgot-password'>Forgot Password?</Link>
             </div>
             <div>
-                <button disabled={isSubmitting} type='submit' className="btn btn-primary btn-block">Sign In</button>
+                <button disabled={isSubmitting} type='submit' className='btn btn-primary btn-block'>Sign In</button>
             </div>
-            <div className='text-center'>
+            <div className='text-center text-[10px] text-black'>
                 or signin with
             </div>
             <div className='flex justify-center gap-5'>
@@ -100,16 +110,17 @@ FormLogin.propTypes = {
     values: propTypes.objectOf(propTypes.string),
     errors: propTypes.objectOf(propTypes.string),
     touched: propTypes.objectOf(propTypes.bool),
-    handleBlur: propTypes.fucn,
-    handleChange: propTypes.fucn,
-    handleSubmit: propTypes.fucn,
-    isSubmitting: propTypes.bool
+    handleBlur: propTypes.func,
+    handleChange: propTypes.func,
+    handleSubmit: propTypes.func,
+    isSubmitting: propTypes.bool,
 }
 
 const Login = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const token = useSelector(state => state.auth.token)
+    const formError = useSelector(state => state.auth.formError)
 
     React.useEffect(() => {
         if (token) {
@@ -119,31 +130,24 @@ const Login = () => {
 
     const doLogin = async (values, { setSubmitting, setErrors }) => {
         dispatch(clearMessage())
-        try {
-            const { email, password } = values
-            const body = new URLSearchParams({ email, password }).toString()
-            const { data } = await http().post('/auth/login', body)
-            dispatch(login(data.results.token))
-            setSubmitting(false)
-        } catch (err) {
-            const message = err?.response?.data?.message
-            if (message) {
-                if (err?.response?.data?.results) {
-                    setErrors({
-                        email: err.response.data.results.filter(item => item.param === "email")[0].message,
-                        password: err.response.data.results.filter(item => item.param === "password")[0].message,
-                    })
-                } else {
-                    dispatch(setErrorMessage(message))
-                }
-            }
+        dispatch(asyncLoginAction(values))
+        if (formError.length) {
+            setErrors({
+                email: formError.filter(item => item.param === 'email')[0].message,
+                password: formError.filter(item => item.param === 'password')[0].message,
+            })
         }
+        setSubmitting(false)
     }
     return (
         <>
-            <div className="flex h-screen">
-                <div className="hidden md:flex flex-1 bg-orange-400"></div>
-                <div className="max-w-md w-full flex justify-center items-center">
+            <div className='flex h-screen'>
+                <div className='hidden md:flex flex-1 bg-primary'>
+                    <div className='flex justify-center items-center'>
+                        <img src={picture} />
+                    </div>
+                </div>
+                <div className='max-w-md w-full flex justify-center items-center'>
                     <Formik
                         initialValues={{
                             email: '',

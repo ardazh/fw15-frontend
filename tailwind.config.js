@@ -1,25 +1,26 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {
+    content: [
+        './index.html',
+        './src/**/*.{js,ts,jsx,tsx}',
+    ],
+    theme: {
+        extend: {
+        },
     },
-  },
-  daisyui: {
-    themes: [
-      {
-        defaultTheme: {
-          "primary": "#4c3f91",
-          "secondary": "#373a42",
-        }
-      }
+    daisyui: {
+        themes: [
+            {
+                defaultTheme: {
+                    'primary': '#E14D2A',
+                    'secondary': '#FD841F',
+                    'info': '#E5E7EB'
+                }
+            }
+        ]
+    },
+    plugins: [
+        require('daisyui'),
+        require('tailwind-scrollbar-hide')
     ]
-  },
-  plugins: [
-    require("daisyui"),
-    require('tailwind-scrollbar-hide')
-  ]
 }

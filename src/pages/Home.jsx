@@ -1,10 +1,10 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import picture from "../assets/img/picture.png"
+import picture from '../assets/img/picture.png'
 import { FaSearch, FaMapMarkerAlt, FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 import { GoPrimitiveDot } from 'react-icons/Go'
 import { HiOutlineMinus } from 'react-icons/Hi'
-import React from "react";
+import React from 'react'
 import axios from 'axios'
 import moment from 'moment'
 import http from '../helpers/http'
@@ -53,7 +53,7 @@ const Home = () => {
                 <div>
                     <Header />
                 </div>
-                <div className="flex flex-col bg-[#E14D2A] bg-[url('/src/assets/img/bubble.png')] bg-no-repeat bg-cover w-full h-full">
+                <div className="flex flex-col bg-primary bg-[url('/src/assets/img/bubble.png')] bg-no-repeat bg-cover w-full h-full">
                     <div className='flex-1 flex justify-center gap-48'>
                         <div className='flex flex-col justify-center items-center pl-10'>
                             <div className='text-white text-6xl tracking-normal tracking-wide ml-8'>
@@ -61,9 +61,9 @@ const Home = () => {
                             </div>
                             <div className='flex justify-center items-center gap-4 bg-white w-[600px] h-[75px] rounded-2xl overflow-hidden'>
                                 <i> <FaSearch /> </i>
-                                <input className=' bg-white border-none outline-none' type="text" placeholder='Search Event...' />
+                                <input className=' bg-white border-none outline-none' type='text' placeholder='Search Event...' />
                                 <i> <FaMapMarkerAlt /> </i>
-                                <input className=' bg-white border-none outline-none' type="text" placeholder='Where?' />
+                                <input className=' bg-white border-none outline-none' type='text' placeholder='Where?' />
                                 <button className='flex justify-center rounded-lg items-center bg-orange-400 h-11 w-11'>
                                     <i className='text-white'>
                                         <FaArrowRight size={25} />
@@ -89,8 +89,8 @@ const Home = () => {
                         Event For You
                     </div>
                     <div className='flex items-center gap-16 mt-[50px]'>
-                        <button className='flex justify-center rounded-lg items-center bg-white h-11 w-11'>
-                            <i className='text-[#C1C5D0]'>
+                        <button className='flex justify-center rounded-lg items-center bg-white h-11 w-11 hover:bg-secondary hover:text-white'>
+                            <i className='text-[#C1C5D0] hover:text-white'>
                                 <FaArrowLeft size={20} />
                             </i>
                         </button>
@@ -141,8 +141,8 @@ const Home = () => {
                                 Thu
                             </div>
                         </div>
-                        <button className='flex justify-center rounded-lg items-center bg-orange-400 h-11 w-11'>
-                            <i className='text-white'>
+                        <button className='flex justify-center rounded-lg items-center bg-white h-11 w-11 hover:bg-secondary hover:text-white'>
+                            <i className='text-[#C1C5D0] hover:text-white'>
                                 <FaArrowRight size={25} />
                             </i>
                         </button>
@@ -153,24 +153,24 @@ const Home = () => {
                                 return (
                                     <Link to={`/detail-events/${event.id}`} key={`event-${event.id}`}>
                                         <div>
-                                            <div className="overflow-hidden rounded-3xl w-[260px] h-[350px] mt-14 relative bg-green-400" >
-                                                <img className="w-full h-full object-cover" src={`http://localhost:8888/uploads/${event.picture}`} />
+                                            <div className='overflow-hidden rounded-3xl w-[260px] h-[350px] mt-14 relative bg-green-400' >
+                                                <img className='w-full h-full object-cover' src={`http://localhost:8888/uploads/${event.picture}`} />
                                                 <div>
-                                                    <div className="absolute bottom-0 text-white flex flex-col gap-5 p-5 bg-gradient-to-t from-[#000000] from-5%">
+                                                    <div className='absolute bottom-0 text-white flex flex-col gap-5 p-5 bg-gradient-to-t from-[#000000] from-5%'>
                                                         <div>{moment(event.date).format('LLLL')}</div>
-                                                        <div className="font-bold text-2xl tracking-wide">{event.title}</div>
-                                                        <div className="flex">
-                                                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
-                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile1" />
+                                                        <div className='font-bold text-2xl tracking-wide'>{event.title}</div>
+                                                        <div className='flex'>
+                                                            <div className='w-12 h-12 rounded-full overflow-hidden border-2 -ml-2'>
+                                                                <img className='object-cover w-full h-full' src='https://i.pravatar.cc/28' alt='profile1' />
                                                             </div>
-                                                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
-                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile2" />
+                                                            <div className='w-12 h-12 rounded-full overflow-hidden border-2 -ml-2'>
+                                                                <img className='object-cover w-full h-full' src='https://i.pravatar.cc/28' alt='profile2' />
                                                             </div>
-                                                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
-                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile3" />
+                                                            <div className='w-12 h-12 rounded-full overflow-hidden border-2 -ml-2'>
+                                                                <img className='object-cover w-full h-full' src='https://i.pravatar.cc/28' alt='profile3' />
                                                             </div>
-                                                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 -ml-2">
-                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile4" />
+                                                            <div className='w-12 h-12 rounded-full overflow-hidden border-2 -ml-2'>
+                                                                <img className='object-cover w-full h-full' src='https://i.pravatar.cc/28' alt='profile4' />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -182,14 +182,14 @@ const Home = () => {
                             })}
                         </div>
                     </div>
-                    <div className='flex justify-center items-center border border-[#FF8900] rounded-md w-[255px] h-10 text-[#FF8900] mt-[17px]'>
-                        <button className='border-none outline-none'>
+                    <div className='flex justify-center items-center text-white mt-[17px]'>
+                        <button className='btn btn-secondary w-[170px] h-8 bg-[#FD841F] rounded-xl outline-none text-sm text-white hover:bg-primary'>
                             See All
                         </button>
                     </div>
-                    <div className="px-12">
+                    <div className='px-12'>
                         <div className="bg-[#FFE15D] mt-44 px-[68px] py-[74px] border rounded-3xl bg-[url('/src/assets/img/bubble.png')] bg-no-repeat bg-cover">
-                            <div className="bg-[#FD841F] mt-11 w-40 h-[30px] flex justify-center items-center rounded-full">
+                            <div className='bg-[#FD841F] mt-11 w-40 h-[30px] flex justify-center items-center rounded-full'>
                                 <div className='flex justify-center items-center rounded-full border-none outline-none text-white bg-orange-400 border h-7 w-[150px] gap-3'>
                                     <i>
                                         <HiOutlineMinus size={50} />
@@ -199,25 +199,25 @@ const Home = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="h-[580px] lg:h-auto overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 lg:gap-12 xl:gap-16">
+                            <div className='h-[580px] lg:h-auto overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 lg:gap-12 xl:gap-16'>
                                 <div>
-                                    <div className="text-4xl flex flex-col tracking-wide w-[214px] mt-6 py-1 tracking-wide">
+                                    <div className='text-4xl flex flex-col tracking-wide w-[214px] mt-6 py-1 tracking-wide'>
                                         Discover<br /> Events<br /> Near You<br />
                                     </div>
                                 </div>
                                 {cities.map((city) => {
                                     return (
                                         <React.Fragment key={`cities-${city.id}`}>
-                                            <div className="flex flex-col items-center gap-[15px] font-medium text-base leading-6 tracking-[1px] text-white" >
-                                                <img src={`http://localhost:8888/uploads/${city.picture}`} alt="jakarta" />
+                                            <div className='flex flex-col items-center gap-[15px] font-medium text-base leading-6 tracking-[1px] text-white' >
+                                                <img src={`http://localhost:8888/uploads/${city.picture}`} alt='jakarta' />
                                                 <div className='capitalize'>{city.name}</div>
                                             </div>
                                         </React.Fragment>
                                     )
                                 })}
                             </div>
-                            <div className="flex justify-center mt-[89px] mb-[73px]">
-                                <button className="w-[255px] h-[40px] bg-white rounded-xl text-sm">
+                            <div className='flex justify-center mt-[89px] mb-[73px] '>
+                                <button className='btn w-[170px] h-8 bg-white rounded-xl text-sm hover:bg-secondary hover:text-white hover:outline-none'>
                                     See All
                                 </button>
                             </div>
@@ -251,24 +251,24 @@ const Home = () => {
                                 return (
                                     <Link to={`/detail-events/${event.id}`} key={`event-category-${event.id}`}>
                                         <div>
-                                            <div className="overflow-hidden rounded-3xl w-64 h-52 mt-14 relative bg-green-400">
-                                                <img className="w-full h-full object-cover" src={`http://localhost:8888/uploads/${event.picture}`} />
+                                            <div className='overflow-hidden rounded-3xl w-64 h-52 mt-14 relative bg-green-400'>
+                                                <img className='w-full h-full object-cover' src={`http://localhost:8888/uploads/${event.picture}`} />
                                                 <div>
-                                                    <div className="absolute bottom-0 text-white flex flex-col gap-3 p-5 bg-gradient-to-t from-[#000000] from-5%">
+                                                    <div className='absolute bottom-0 text-white flex flex-col gap-3 p-5 bg-gradient-to-t from-[#000000] from-5%'>
                                                         <div>{moment(event.date).format('LLLL')}</div>
-                                                        <div className="font-bold text-xs tracking-wide">{event.title}</div>
-                                                        <div className="flex">
-                                                            <div className="w-8 h-8 rounded-full overflow-hidden border-2 -ml-2">
-                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile1" />
+                                                        <div className='font-bold text-xs tracking-wide'>{event.title}</div>
+                                                        <div className='flex'>
+                                                            <div className='w-8 h-8 rounded-full overflow-hidden border-2 -ml-2'>
+                                                                <img className='object-cover w-full h-full' src='https://i.pravatar.cc/28' alt='profile1' />
                                                             </div>
-                                                            <div className="w-8 h-8 rounded-full overflow-hidden border-2 -ml-2">
-                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile2" />
+                                                            <div className='w-8 h-8 rounded-full overflow-hidden border-2 -ml-2'>
+                                                                <img className='object-cover w-full h-full' src='https://i.pravatar.cc/28' alt='profile2' />
                                                             </div>
-                                                            <div className="w-8 h-8 rounded-full overflow-hidden border-2 -ml-2">
-                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile3" />
+                                                            <div className='w-8 h-8 rounded-full overflow-hidden border-2 -ml-2'>
+                                                                <img className='object-cover w-full h-full' src='https://i.pravatar.cc/28' alt='profile3' />
                                                             </div>
-                                                            <div className="w-8 h-8 rounded-full overflow-hidden border-2 -ml-2">
-                                                                <img className="object-cover w-full h-full" src="https://i.pravatar.cc/28" alt="profile4" />
+                                                            <div className='w-8 h-8 rounded-full overflow-hidden border-2 -ml-2'>
+                                                                <img className='object-cover w-full h-full' src='https://i.pravatar.cc/28' alt='profile4' />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -279,7 +279,7 @@ const Home = () => {
                                 )
                             })}
                             {eventCategories.length < 1 && (
-                                <div className="texts-center font-bold text-3xl">
+                                <div className='texts-center font-bold text-3xl'>
                                     No Events Available
                                 </div>
                             )}
@@ -294,18 +294,18 @@ const Home = () => {
                                 PARTNER
                             </div>
                         </div>
-                        <div className="font-semibold text-4xl tracking-[1px] mt-6 text-[#FFFFFF]">
+                        <div className='font-semibold text-4xl tracking-[1px] mt-6 text-[#FFFFFF]'>
                             Our Trusted Partners
                         </div>
-                        <div className="text-xs tracking-[0.5px] mt-3.5 text-[#C1C5D0]">
+                        <div className='text-xs tracking-[0.5px] mt-3.5 text-[#C1C5D0]'>
                             By companies like :
                         </div>
                         <div className='flex gap-16'>
                             {partners.map(partner => {
                                 return (
                                     <React.Fragment key={`partners-${partner.id}`}>
-                                        <div className="flex justify-center items-center gap-16 mt-12 mb-24">
-                                            <img src={`http://localhost:8888/uploads/${partner.picture}`} alt="sponsor1" />
+                                        <div className='flex justify-center items-center gap-16 mt-12 mb-24'>
+                                            <img src={`http://localhost:8888/uploads/${partner.picture}`} alt='sponsor1' />
                                         </div>
                                     </React.Fragment>
                                 )
@@ -321,4 +321,4 @@ const Home = () => {
     )
 }
 
-export default Home;
+export default Home
