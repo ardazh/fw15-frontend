@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import { FaFacebook } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
@@ -7,13 +7,19 @@ import React from 'react'
 import http from '../helpers/http'
 import * as Yup from 'yup'
 import propTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { clearMessage, login, setErrorMessage } from '../redux/reducers/auth'
 
 const validationSchema = Yup.object({
     email: Yup.string().email('Email is Invalid'),
     password: Yup.string().required('Password is Invalid')
 })
 
-const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, warningMessage }) => {
+const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => {
+    const errorMessage = useSelector(state => state.auth.errorMessage)
+    const warningMessage = useSelector(state => state.auth.warningMessage)
+
     return (
         <form onSubmit={handleSubmit} className="w-[80%] flex flex-col gap-5">
             <div>
@@ -25,6 +31,10 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
             <div>
                 Hi, Welcome back to Urticket!
             </div>
+            {errorMessage &&
+                (<div>
+                    <div className='alert alert-warning'>{errorMessage}</div>
+                </div>)}
             {warningMessage &&
                 (<div>
                     <div className='alert alert-warning'>{warningMessage}</div>
@@ -93,17 +103,14 @@ FormLogin.propTypes = {
     handleBlur: propTypes.fucn,
     handleChange: propTypes.fucn,
     handleSubmit: propTypes.fucn,
-    isSubmitting: propTypes.bool,
-    warningMessage: propTypes.string,
-    errorMessage: propTypes.string
+    isSubmitting: propTypes.bool
 }
 
 const Login = () => {
-    const location = useLocation()
     const navigate = useNavigate()
-    const [token, setToken] = React.useState('')
-    const [warningMessage, setWarningMessage] = React.useState(location.state?.warningMessage)
-    const [errorMessage, setErrorMessage] = React.useState('')
+    const dispatch = useDispatch()
+    const token = useSelector(state => state.auth.token)
+
     React.useEffect(() => {
         if (token) {
             navigate('/')
@@ -111,15 +118,13 @@ const Login = () => {
     }, [token, navigate])
 
     const doLogin = async (values, { setSubmitting, setErrors }) => {
-        setWarningMessage('')
-        setErrorMessage('')
+        dispatch(clearMessage())
         try {
             const { email, password } = values
             const body = new URLSearchParams({ email, password }).toString()
             const { data } = await http().post('/auth/login', body)
-            window.localStorage.setItem('token', data.results.token)
+            dispatch(login(data.results.token))
             setSubmitting(false)
-            setToken(data.results.token)
         } catch (err) {
             const message = err?.response?.data?.message
             if (message) {
@@ -129,7 +134,7 @@ const Login = () => {
                         password: err.response.data.results.filter(item => item.param === "password")[0].message,
                     })
                 } else {
-                    setErrorMessage(message)
+                    dispatch(setErrorMessage(message))
                 }
             }
         }
@@ -148,7 +153,7 @@ const Login = () => {
                         onSubmit={doLogin}
                     >
                         {(props) => (
-                            <FormLogin {...props} warningMessage={warningMessage} errorMessage={errorMessage} />
+                            <FormLogin {...props} />
                         )}
                     </Formik>
                 </div>

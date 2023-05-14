@@ -4,28 +4,27 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
 import http from '../helpers/http'
+import { useDispatch, useSelector } from "react-redux"
+import { logout as logoutAction } from "../redux/reducers/auth"
 
 const Header = () => {
     const [profile, setProfile] = React.useState({})
-    const [token, setToken] = React.useState('')
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
+    const token = useSelector(state => state.auth.token)
     React.useEffect(() => {
         async function getProfileData() {
-            const token = window.localStorage.getItem('token')
-            if (token) {
-                const { data } = await http(token).get('/profile')
-                setProfile(data.results)
-            }
+            const { data } = await http(token).get('/profile')
+            console.log(data)
+            setProfile(data.results)
         }
-        getProfileData()
-        if (window.localStorage.getItem('token')) {
-            setToken(window.localStorage.getItem('token'))
+        if (token) {
+            getProfileData()
         }
-    }, [])
+    }, [token, dispatch, navigate])
 
     const doLogout = () => {
-        window.localStorage.removeItem('token')
+        dispatch(logoutAction())
         navigate('/login')
     }
 
@@ -63,17 +62,20 @@ const Header = () => {
                         </li>
                     </ul>
                 </div>
-                {token ? <div className='text-2xl'>
-                    <div>{profile?.fullName}</div>
-                    <button onClick={doLogout} className='btn btn-primary'>Logout</button>
-                </div> : <div className="flex items-center gap-3.5">
-                    <div>
-                        <Link className='text-black fond-bold' to="/login">Login</Link>
-                    </div>
-                    <div>
-                        <button className='btn bg-[#FD841F] text-[#FFFFFF] border-orange-400 hover:border-primary hover:bg-primary'>Sign Up</button>
-                    </div>
-                </div>}
+                {token ?
+                    <div className='text-2xl'>
+                        <div>{profile?.fullName}</div>
+                        <button onClick={doLogout} className='btn btn-primary'>Logout</button>
+                        <Link to='/profile' className="btn btn-primary">Profile</Link>
+                    </div> :
+                    <div className="flex items-center gap-3.5">
+                        <div>
+                            <Link className='text-black fond-bold' to="/login">Login</Link>
+                        </div>
+                        <div>
+                            <button className='btn bg-[#FD841F] text-[#FFFFFF] border-orange-400 hover:border-primary hover:bg-primary'>Sign Up</button>
+                        </div>
+                    </div>}
             </div>
         </header>
     )

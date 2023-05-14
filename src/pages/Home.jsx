@@ -278,6 +278,11 @@ const Home = () => {
                                     </Link>
                                 )
                             })}
+                            {eventCategories.length < 1 && (
+                                <div className="texts-center font-bold text-3xl">
+                                    No Events Available
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className="flex flex-col w-full items-center h-[450px] bg-[#FD841F] mt-44 bg-[url('/src/assets/img/bubble.png')] bg-no-repeat bg-cover">
