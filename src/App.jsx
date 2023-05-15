@@ -14,6 +14,7 @@ import MyBooking from './pages/MyBooking'
 import MyWishlist from './pages/MyWishlist'
 
 import { store } from './redux/store'
+import PrivateRoute from './components/PrivateRoute'
 
 const App = () => {
     return (
@@ -27,7 +28,7 @@ const App = () => {
                     <Route path='/detail-events/:id' element={<DetailEvents />} />
                     <Route path='/booking' element={<Booking />} />
                     <Route path='/payment' element={<Payment />} />
-                    <Route path='/profile' element={<Profile />} />
+                    <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>} />
                     <Route path='/change-password' element={<ChangePassword />} />
                     <Route path='/my-booking' element={<MyBooking />} />
                     <Route path='/my-wishlist' element={<MyWishlist />} />

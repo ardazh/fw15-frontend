@@ -1,16 +1,12 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+// import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import http from '../helpers/http'
-
-import { setWarningMessage } from '../redux/reducers/auth'
 
 const Profile = () => {
     const token = useSelector(state => state.auth.token)
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
     const [profile, setProfile] = React.useState({})
 
     React.useEffect(() => {
@@ -21,13 +17,6 @@ const Profile = () => {
         }
         getProfile()
     }, [token])
-
-    React.useEffect(() => {
-        if (!token) {
-            dispatch(setWarningMessage('You have Login first'))
-            navigate('/login')
-        }
-    }, [token, dispatch, navigate])
 
     return (
         <>

@@ -217,7 +217,7 @@ const Home = () => {
                                 })}
                             </div>
                             <div className='flex justify-center mt-[89px] mb-[73px] '>
-                                <button className='btn w-[170px] h-8 bg-white rounded-xl text-sm hover:bg-secondary hover:text-white hover:outline-none'>
+                                <button className='btn w-[170px] h-8 bg-white rounded-xl text-sm hover:bg-secondary hover:text-white hover:border-secondary'>
                                     See All
                                 </button>
                             </div>
