@@ -7,7 +7,7 @@ const http = (token, fallback) =>{
     }
     const instance = axios.create({
         headers,
-        baseURL: 'http://localhost:8888'
+        baseURL: import.meta.env.VITE_BACKEND_URL
     })
 
     instance.interceptors.response.use((response)=> {

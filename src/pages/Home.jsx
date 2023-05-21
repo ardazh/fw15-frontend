@@ -23,7 +23,7 @@ const Home = () => {
     }
     React.useEffect(() => {
         async function getData() {
-            const { data } = await axios.get('http://localhost:8888/events')
+            const { data } = await http().get('/events')
             setEvents(data.results)
         }
         getData()
@@ -154,7 +154,10 @@ const Home = () => {
                                     <Link to={`/detail-events/${event.id}`} key={`event-${event.id}`}>
                                         <div>
                                             <div className='overflow-hidden rounded-3xl w-[260px] h-[350px] mt-14 relative bg-green-400' >
-                                                <img className='w-full h-full object-cover' src={`http://localhost:8888/uploads/${event.picture}`} />
+                                                {/* <img className='w-full h-full object-cover' src={`http://localhost:8888/uploads/${event.picture}`} /> */}
+                                                {event?.picture && (
+                                                    <img className='w-full h-full object-cover' src={event.picture.startsWith('https') ? event.picture : `${import.meta.env.VITE_BACKEND_URL}/uploads/${event.picture}`} alt='' />
+                                                )}
                                                 <div>
                                                     <div className='absolute bottom-0 text-white flex flex-col gap-5 p-5 bg-gradient-to-t from-[#000000] from-5%'>
                                                         <div>{moment(event.date).format('LLLL')}</div>
@@ -209,7 +212,10 @@ const Home = () => {
                                     return (
                                         <React.Fragment key={`cities-${city.id}`}>
                                             <div className='flex flex-col items-center gap-[15px] font-medium text-base leading-6 tracking-[1px] text-white' >
-                                                <img src={`http://localhost:8888/uploads/${city.picture}`} alt='jakarta' />
+                                                {/* <img src={`http://localhost:8888/uploads/${city.picture}`} alt='jakarta' /> */}
+                                                {city?.picture && (
+                                                    <img className='w-full h-full object-cover' src={city.picture.startsWith('https') ? city.picture : `${import.meta.env.VITE_BACKEND_URL}/uploads/${city.picture}`} alt='' />
+                                                )}
                                                 <div className='capitalize'>{city.name}</div>
                                             </div>
                                         </React.Fragment>
@@ -252,7 +258,10 @@ const Home = () => {
                                     <Link to={`/detail-events/${event.id}`} key={`event-category-${event.id}`}>
                                         <div>
                                             <div className='overflow-hidden rounded-3xl w-64 h-52 mt-14 relative bg-green-400'>
-                                                <img className='w-full h-full object-cover' src={`http://localhost:8888/uploads/${event.picture}`} />
+                                                {/* <img className='w-full h-full object-cover' src={`http://localhost:8888/uploads/${event.picture}`} /> */}
+                                                {event?.picture && (
+                                                    <img className='w-full h-full object-cover' src={event.picture.startsWith('https') ? event.picture : `${import.meta.env.VITE_BACKEND_URL}/uploads/${event.picture}`} alt='' />
+                                                )}
                                                 <div>
                                                     <div className='absolute bottom-0 text-white flex flex-col gap-3 p-5 bg-gradient-to-t from-[#000000] from-5%'>
                                                         <div>{moment(event.date).format('LLLL')}</div>
@@ -305,7 +314,10 @@ const Home = () => {
                                 return (
                                     <React.Fragment key={`partners-${partner.id}`}>
                                         <div className='flex justify-center items-center gap-16 mt-12 mb-24'>
-                                            <img src={`http://localhost:8888/uploads/${partner.picture}`} alt='sponsor1' />
+                                            {/* <img src={`http://localhost:8888/uploads/${partner.picture}`} alt='sponsor1' /> */}
+                                            {partner?.picture && (
+                                                <img className='w-full h-full object-cover' src={partner.picture.startsWith('https') ? partner.picture : `${import.meta.env.VITE_BACKEND_URL}/uploads/${partner.picture}`} alt='' />
+                                            )}
                                         </div>
                                     </React.Fragment>
                                 )
