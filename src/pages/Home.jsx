@@ -5,7 +5,6 @@ import { FaSearch, FaMapMarkerAlt, FaArrowRight, FaArrowLeft } from 'react-icons
 import { GoPrimitiveDot } from 'react-icons/go'
 import { HiOutlineMinus } from 'react-icons/hi'
 import React from 'react'
-import axios from 'axios'
 import moment from 'moment'
 import http from '../helpers/http'
 import { Link } from 'react-router-dom'
