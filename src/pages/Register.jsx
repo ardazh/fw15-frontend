@@ -13,14 +13,16 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { clearMessage } from '../redux/reducers/auth'
 
-import { asyncLoginAction } from '../redux/actions/auth'
+import { asyncRegisterAction } from '../redux/actions/auth'
 
 const validationSchema = Yup.object({
-    email: Yup.string().required().email('Email is Invalid'),
-    password: Yup.string().required('Password is Invalid')
+    fullName: Yup.string().required('Minimum character is 3').min(3),
+    email: Yup.string().required('Email is Invalid').email(),
+    password: Yup.string().required('Password is Invalid'),
+    confirmPassword: Yup.string().required().oneOf([Yup.ref('password'), null], 'Password do not match')
 })
 
-const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => {
+const FormRegister = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => {
     const errorMessage = useSelector(state => state.auth.errorMessage)
     const warningMessage = useSelector(state => state.auth.warningMessage)
 
@@ -36,13 +38,10 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
                 </span>
             </Link>
             <div className='text-lg text-black'>
-                Sign In
+                Sign Up
             </div>
             <div className='text-[10px] text-black'>
-                Hi, Welcome back to Onceticket!
-            </div>
-            <div className='text-[10px] text-black'>
-                Don&apos;t have any account? <Link className='text-secondary' to='/register'>Register Here</Link>
+                Enter your account details here
             </div>
             {errorMessage &&
                 (<div>
@@ -52,6 +51,25 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
                 (<div>
                     <div className='alert alert-warning'>{warningMessage}</div>
                 </div>)}
+
+            <div className='from-control'>
+                <input
+                    placeholder='Full Name'
+                    className={`input input-bordered w-full${errors.fullName && touched.fullName && 'input-error'}`}
+                    type='fullName'
+                    name='fullName'
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.fullName}
+                />
+                {errors.fullName && touched.fullName && (
+                    <label className='label'>
+                        <span className='label-text-alt text-error'>
+                            {errors.fullName}
+                        </span>
+                    </label>
+                )}
+            </div>
             <div className='from-control'>
                 <input
                     placeholder='Email'
@@ -72,7 +90,7 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
             </div>
             <div className='from-control'>
                 <input
-                    placeholder='password'
+                    placeholder='Password'
                     className={`input input-bordered w-full${errors.password && touched.password && 'input-error'}`}
                     type='password'
                     name='password'
@@ -88,14 +106,37 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
                     </label>
                 )}
             </div>
-            <div className='text-right'>
-                <Link className='text-primary fond-bold' to='/forgot-password'>Forgot Password?</Link>
+            <div className='from-control'>
+                <input
+                    placeholder='Confirm Password'
+                    className={`input input-bordered w-full${errors.confirmPassword && touched.confirmPassword && 'input-error'}`}
+                    type='password'
+                    name='confirmPassword'
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.confirmPassword}
+                />
+                {errors.confirmPassword && touched.confirmPassword && (
+                    <label className='label'>
+                        <span className='label-text-alt text-error'>
+                            {errors.confirmPassword}
+                        </span>
+                    </label>
+                )}
+            </div>
+            <div className='flex gap-3'>
+                <div>
+                    <input type='checkbox' /> 
+                </div>
+                <div>
+                    Accept terms and condition
+                </div>
             </div>
             <div>
-                <button disabled={isSubmitting} type='submit' className='btn btn-primary btn-block'>Sign In</button>
+                <button disabled={isSubmitting} type='submit' className='btn btn-primary btn-block'>Sign Up</button>
             </div>
             <div className='text-center text-[10px] text-black'>
-                or signin with
+                or register with
             </div>
             <div className='flex justify-center gap-5'>
                 <button className='btn btn-secondary bg-white border-primary hover:border-primary hover:bg-primary w-24'>
@@ -109,7 +150,7 @@ const FormLogin = ({ values, errors, touched, handleChange, handleBlur, handleSu
     )
 }
 
-FormLogin.propTypes = {
+FormRegister.propTypes = {
     values: propTypes.objectOf(propTypes.string),
     errors: propTypes.objectOf(propTypes.string),
     touched: propTypes.objectOf(propTypes.bool),
@@ -119,7 +160,7 @@ FormLogin.propTypes = {
     isSubmitting: propTypes.bool,
 }
 
-const Login = () => {
+const Register = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const token = useSelector(state => state.auth.token)
@@ -133,7 +174,7 @@ const Login = () => {
 
     const doLogin = async (values, { setSubmitting, setErrors }) => {
         dispatch(clearMessage())
-        dispatch(asyncLoginAction(values))
+        dispatch(asyncRegisterAction(values))
         if (formError.length) {
             setErrors({
                 email: formError.filter(item => item.param === 'email')[0].message,
@@ -153,14 +194,16 @@ const Login = () => {
                 <div className='max-w-md w-full flex justify-center items-center'>
                     <Formik
                         initialValues={{
+                            fullName: '',
                             email: '',
-                            password: ''
+                            password: '',
+                            confirmPassword: ''
                         }}
                         validationSchema={validationSchema}
                         onSubmit={doLogin}
                     >
                         {(props) => (
-                            <FormLogin {...props} />
+                            <FormRegister {...props} />
                         )}
                     </Formik>
                 </div>
@@ -169,4 +212,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Register

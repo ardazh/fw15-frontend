@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom'
 import React from 'react'
 import http from '../helpers/http'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout as logoutAction } from '../redux/reducers/auth'
+import { logout as logoutAction,setErrorMessage } from '../redux/reducers/auth'
+import Image from './Image'
+import defaultImage from '../assets/img/default.jpg'
 
 const Header = () => {
     const [profile, setProfile] = React.useState({})
@@ -14,11 +16,16 @@ const Header = () => {
     const token = useSelector(state => state.auth.token)
     React.useEffect(() => {
         async function getProfileData() {
-            const { data } = await http(token).get('/profile')
+            const fallback = (message)=> {
+                dispatch(logoutAction())
+                dispatch(setErrorMessage(message))
+                navigate('/login')
+            }
+            const { data } = await http(token, fallback).get('/profile')
             console.log(data)
             setProfile(data.results)
         }
-        if (token) {
+        if(token) {
             getProfileData()
         }
     }, [token, dispatch, navigate])
@@ -35,7 +42,7 @@ const Header = () => {
                     <Link to='/' className='flex text-2xl'>
                         <img src={logo} alt='Logo Wetick' />
                         <span className='flex items-center text-[#E14D2A]'>
-                            we
+                            Once
                         </span>
                         <span className='flex items-center text-[#48E0E4]'>
                             tick
@@ -66,7 +73,8 @@ const Header = () => {
                     <div className='flex text-lg items-center gap-3'>
                         <div>
                             <div className='inline-block rounded-full p-[2px] bg-gradient-to-r from-cyan-500 to-blue-500'>
-                                <img className='w-11 h-11 object-cover rounded-full border-2 border-white' src={`http://localhost:8888/uploads/${profile?.picture}`} alt='profile1' />
+                                {/* <img className='w-11 h-11 object-cover rounded-full border-2 border-white' src={`http://localhost:8888/uploads/${profile?.picture}`} alt='profile1' /> */}
+                                {<Image className='w-12 h-12 object-cover border-4 border-white rounded-full' src={profile?.picture || null} defaultImg={defaultImage} />}
                             </div>
                         </div>
                         <Link to='/profile'>{profile?.fullName}</Link>
@@ -76,7 +84,7 @@ const Header = () => {
                         <div>
                             <Link className='text-black fond-bold hover:text-primary hover:border-primary' to='/login'>Login</Link>
                         </div>
-                        <Link to='/sign-up'>
+                        <Link to='/register'>
                             <button className='btn btn-secondary text-[#FFFFFF] border-orange-400 hover:border-primary hover:bg-primary'>Sign Up</button>
                         </Link>
                     </div>}

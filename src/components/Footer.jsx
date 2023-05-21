@@ -12,7 +12,7 @@ const Footer = () => {
                                 <img src={logo} alt='Logo Wetick' />
                             </div>
                             <div>
-                                <span className='text-[#E14D2A]'>we</span>
+                                <span className='text-[#E14D2A]'>Once</span>
                                 <span className='text-[#48E0E4]'>tick</span>
                             </div>
                         </div>
@@ -51,7 +51,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className=''>
-                    <p className='font-semibold text-base'>&copy;2020 Wetick All Rights Reserved</p>
+                    <p className='font-semibold text-base'>&copy;2020 Oncetick All Rights Reserved</p>
                 </div>
             </div>
         </footer>
