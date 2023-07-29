@@ -1,7 +1,7 @@
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+import Header from "../components/Header"
+import Footer from "../components/Footer"
 
-const ChangePassword = () => {
+const MyBooking = () => {
     return (
         <>
             <div>
@@ -73,4 +73,4 @@ const ChangePassword = () => {
     )
 }
 
-export default ChangePassword
+export default MyBooking

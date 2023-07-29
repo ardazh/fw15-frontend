@@ -1,15 +1,15 @@
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import React from 'react'
+import Header from "../components/Header"
+import Footer from "../components/Footer"
+import React from "react"
 // import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import http from '../helpers/http'
-import { Formik, Field } from 'formik'
-import moment from 'moment'
-import {AiOutlineLoading3Quarters} from 'react-icons/ai'
-import Sidebar from '../components/Sidebar'
+import { useSelector } from "react-redux"
+import http from "../helpers/http"
+import { Formik, Field } from "formik"
+import moment from "moment"
+import {AiOutlineLoading3Quarters} from "react-icons/ai"
+import Sidebar from "../components/Sidebar"
 
-import defaultProfile from '../assets/img/default.jpg'
+import defaultProfile from "../assets/img/default.jpg"
 
 const Profile = () => {
     const token = useSelector(state => state.auth.token)
@@ -19,12 +19,12 @@ const Profile = () => {
     const [editBirthdate, setEditBirthdate] = React.useState(false)
     const [selectedPicture, setSelectedPicture] = React.useState(false)
     const [openModal, setOpenModal] = React.useState(false)
-    const [pictureURI, setPictureURI] = React.useState('')
+    const [pictureURI, setPictureURI] = React.useState("")
 
 
     React.useEffect(() => {
         const getProfile = async () => {
-            const { data } = await http(token).get('/profile')
+            const { data } = await http(token).get("/profile")
             setProfile(data.results)
         }
         getProfile()
@@ -36,7 +36,7 @@ const Profile = () => {
 
     const fileToDataUrl = (file) =>{
         const reader = new FileReader()
-        reader.addEventListener('load',() => {
+        reader.addEventListener("load",() => {
             setPictureURI(reader.result)
         })
         reader.readAsDataURL(file)
@@ -53,19 +53,19 @@ const Profile = () => {
         const form = new FormData()
         Object.keys(values).forEach((key) =>{
             if(values[key]){
-                if(key === 'birthDate'){
-                    form.append(key, moment(values[key]).format('YYYY-MM-DD'))
+                if(key === "birthDate"){
+                    form.append(key, moment(values[key]).format("YYYY-MM-DD"))
                 }else{
                     form.append(key, values[key])
                 }
             }
         })
         if(selectedPicture){
-            form.append('picture', selectedPicture)
+            form.append("picture", selectedPicture)
         }
-        const {data} = await http(token).patch('/profile', form, {
+        const {data} = await http(token).patch("/profile", form, {
             headers: {
-                'Contenct-Type': 'multipart/form-data'
+                "Contenct-Type": "multipart/form-data"
             }
         })
         setProfile(data.results)
@@ -90,7 +90,7 @@ const Profile = () => {
                             fullName: profile?.fullName,
                             email: profile?.email,
                             phoneNumber: profile?.phoneNumber,
-                            gender: profile?.gender === '1' ? '1' : '2',
+                            gender: profile?.gender === "1" ? "1" : "2",
                             profession: profile?.profession,
                             nationality: profile?.nationality,
                             birthDate: profile?.birthDate 
@@ -160,7 +160,7 @@ const Profile = () => {
                                     <div className='flex'>
                                         <div className='w-[150px] flex items-center'>Birthdate</div>
                                         <div className='flex gap-3 flex-1'>
-                                            {!editBirthdate && <span>{profile?.birthDate === null ? <span className='text-red-400'>Not set</span> : moment(profile?.birthDate).format('DD/MM/YYYY')}</span>}
+                                            {!editBirthdate && <span>{profile?.birthDate === null ? <span className='text-red-400'>Not set</span> : moment(profile?.birthDate).format("DD/MM/YYYY")}</span>}
                                             {editBirthdate && (
                                                 <input name='birthDate' onChange={handleChange} onBlur={handleBlur} value={values.birthDate} type='date' className='input input-bordered w-full px-3 h-[55px] border-secondary' />
                                             )}
@@ -182,7 +182,7 @@ const Profile = () => {
                                     <div className='rounded-full p-[13px] border-[4px] border-black w-[137px] h-[137px]'>
                                         <div className='w-full h-full rounded-full overflow-hidden'>
                                             {!selectedPicture && <img className='w-full h-full object-cover' src={
-                                                profile?.picture?.startsWith('https')? 
+                                                profile?.picture?.startsWith("https")? 
                                                     profile?.picture : 
                                                     (
                                                         profile?.picture === null ? 
