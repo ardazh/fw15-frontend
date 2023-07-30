@@ -34,7 +34,7 @@ const Booking = () => {
       setFilledSection({ id, quantity: filledSection.quantity - 1 })
     }
   }
-
+  console.log(filledSection)
   React.useEffect(() => {
     const getSection = async () => {
       const {data} = await http(token).get("/section")
@@ -47,11 +47,12 @@ const Booking = () => {
     const form = new URLSearchParams({
       eventId,
       sectionId: filledSection.id,
-      quantity: filledSection.id
+      quantity: filledSection.quantity
     }).toString()
 
     const {data} = await http(token).post("/reservations", form)
-    console.log(data)
+    // console.log(data.results)
+    // return
     navigate("/payment", {
       state: {
         eventId,
@@ -99,7 +100,7 @@ const Booking = () => {
                 <div className='flex flex-col gap-7 w-full' key={`section-select-${item.id}`}>
                   <div className='flex items-start justify-start gap-4 w-full'>
                     <div className='w-[50px]'>
-                      <i className='text-[#884DFF]'>
+                      <i className='text-[#f54242]'>
                         <IoTicket size={27} />
                       </i>
                     </div>
