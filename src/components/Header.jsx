@@ -44,11 +44,9 @@ const Header = () => {
               <img src={logo} className='w-16 h-16 object-cover border-4 rounded-full' />
             </div>
             <div>
-              <Link to='/'>
-                <p className='text-2xl font-semibold text-orange-400 tracking-[1px]'>
+              <p className='text-2xl font-semibold text-orange-400 tracking-[1px]'>
                     Once Ticket
-                </p>
-              </Link>
+              </p>
             </div>
           </Link>
           <div className='md:hidden'>
