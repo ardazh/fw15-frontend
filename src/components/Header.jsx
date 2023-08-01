@@ -8,9 +8,12 @@ import { useDispatch, useSelector } from "react-redux"
 import { logout as logoutAction,setErrorMessage } from "../redux/reducers/auth"
 import Image from "./Image"
 import defaultImage from "../assets/img/default.jpg"
+import { setDataProfile } from "../redux/reducers/profile"
+
 
 const Header = () => {
-  const [profile, setProfile] = React.useState({})
+  // const [profile, setProfile] = React.useState({})
+  const profile = useSelector(state => state.profile.dataProfile)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const token = useSelector(state => state.auth.token)
@@ -22,8 +25,7 @@ const Header = () => {
         navigate("/login")
       }
       const { data } = await http(token, fallback).get("/profile")
-      console.log(data)
-      setProfile(data.results)
+      dispatch(setDataProfile(data.results))
     }
     if(token) {
       getProfileData()

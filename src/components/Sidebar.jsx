@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from "react-redux"
 import { logout as logoutAction,setWarningMessage } from "../redux/reducers/auth"
 import Image from "./Image"
 import defaultImage from "../assets/img/default.jpg"
+import { setDataProfile } from "../redux/reducers/profile"
 
 import { FiCreditCard, FiEdit3, FiHeart, FiList, FiLogOut, FiPlusCircle, FiSettings, FiUnlock, FiUser } from "react-icons/fi"
 
 
 const Sidebar = () => {
-  const [profile, setProfile] = React.useState({})
+  // const [profile, setProfile] = React.useState({})
+  const profile = useSelector(state => state.profile.dataProfile)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const token = useSelector(state => state.auth.token)
@@ -23,7 +25,7 @@ const Sidebar = () => {
       }
       const { data } = await http(token, fallback).get("/profile")
       console.log(data)
-      setProfile(data.results)
+      dispatch(setDataProfile(data.results))
     }
     if(token) {
       getProfileData()
