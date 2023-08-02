@@ -12,6 +12,7 @@ import Profile from "./pages/Profile"
 import ChangePassword from "./pages/ChangePassword"
 import MyBooking from "./pages/MyBooking"
 import MyWishlist from "./pages/MyWishlist"
+import ManageEvents from "./pages/ManageEvents"
 
 import { store,persistor } from "./redux/store"
 import PrivateRoute from "./components/PrivateRoute"
@@ -33,6 +34,7 @@ const App = () => {
             <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>} />
             <Route path='/change-password' element={<PrivateRoute><ChangePassword /></PrivateRoute>} />
             <Route path='/my-booking' element={<PrivateRoute><MyBooking /></PrivateRoute>} />
+            <Route path='/manage-events' element={<PrivateRoute><ManageEvents /></PrivateRoute>} />
             <Route path='/my-wishlist' element={<PrivateRoute><MyWishlist /></PrivateRoute>} />
           </Routes>
         </BrowserRouter>
