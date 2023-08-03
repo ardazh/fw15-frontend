@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import React from "react"
 import http from "../helpers/http"
 import { useDispatch, useSelector } from "react-redux"
@@ -24,7 +24,6 @@ const Sidebar = () => {
         navigate("/login")
       }
       const { data } = await http(token, fallback).get("/profile")
-      console.log(data)
       dispatch(setDataProfile(data.results))
     }
     if(token) {
@@ -56,12 +55,12 @@ const Sidebar = () => {
       </div>
       <ul>
         <li className='flex gap-7 mb-8 text-sm'>
-          <a className='flex items-center gap-6' href='#'>
+          <Link className='flex items-center gap-6' to='/profile'>
             <i>
               <FiUser size={22} />
             </i>
               Profile
-          </a>
+          </Link>
         </li>
         <li>
           <ul className='ml-7'>
@@ -73,7 +72,7 @@ const Sidebar = () => {
                   Card
               </a>
             </li>
-            <a className='flex items-center gap-6' href='#'>
+            <a className='flex items-center gap-6' href=''>
               <li className='flex gap-7 mb-8 text-sm'>
                 <i>
                   <FiEdit3 size={22} />
@@ -81,40 +80,40 @@ const Sidebar = () => {
                   Edit Profile
               </li>
             </a>
-            <a className='flex items-center gap-6' href='#'>
+            <Link className='flex items-center gap-6' to='/change-password'>
               <li className='flex gap-7 mb-8 text-sm'>
                 <i>
                   <FiUnlock size={22} />
                 </i>
                   Change Password
               </li>
-            </a>
+            </Link>
           </ul>
         </li>
-        <a className='flex items-center gap-6' href='#'>
+        <Link className='flex items-center gap-6' to='/manage-events'>
           <li className='flex gap-7 mb-8 text-sm'>
             <i>
               <FiPlusCircle size={22} />
             </i>
               Create Event
           </li>
-        </a>
-        <a className='flex items-center gap-6' href='#'>
+        </Link>
+        <Link className='flex items-center gap-6' to='/my-booking'>
           <li className='flex gap-7 mb-8 text-sm'>
             <i>
               <FiList size={22} />
             </i>
               My Booking
           </li>
-        </a>
-        <a className='flex items-center gap-6' href='#'>
+        </Link>
+        <Link className='flex items-center gap-6' to='/my-wishlist'>
           <li className='flex gap-7 mb-8 text-sm'>
             <i>
               <FiHeart size={22} />
             </i>
               My Wishlist
           </li>
-        </a>
+        </Link>
         <a className='flex items-center gap-6' href='#'>
           <li className='flex gap-7 mb-8 text-sm'>
             <i>

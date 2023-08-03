@@ -8,6 +8,7 @@ import React from "react"
 import moment from "moment"
 import http from "../helpers/http"
 import { Link } from "react-router-dom"
+import { Helmet } from "react-helmet"
 
 
 const Home = () => {
@@ -48,6 +49,11 @@ const Home = () => {
   }, [])
   return (
     <>
+      <div>
+        <Helmet>
+          <title>Home | OnceTicket</title>
+        </Helmet>
+      </div>
       <div className='h-screen bg-primary'>
         <div>
           <Header />
@@ -55,8 +61,8 @@ const Home = () => {
         <div className="flex flex-col bg-primary bg-[url('/src/assets/img/bubble.png')] bg-no-repeat bg-cover w-full h-full">
           <div className='flex-1 flex justify-center gap-48'>
             <div className='flex flex-col justify-center items-center pl-10'>
-              <div className='text-white text-6xl tracking-normal tracking-wide ml-8'>
-                                Find events you love with our
+              <div className='text-white text-6xl tracking-normal ml-8'>
+                Find events you love with our
               </div>
               <div className='flex justify-center items-center gap-4 bg-white w-[600px] h-[75px] rounded-2xl overflow-hidden'>
                 <i> <FaSearch /> </i>
@@ -153,7 +159,6 @@ const Home = () => {
                   <Link to={`/detail-events/${event.id}`} key={`event-${event.id}`}>
                     <div>
                       <div className='overflow-hidden rounded-3xl w-[260px] h-[350px] mt-14 relative bg-green-400' >
-                        {/* <img className='w-full h-full object-cover' src={`http://localhost:8888/uploads/${event.picture}`} /> */}
                         {event?.picture && (
                           <img className='w-full h-full object-cover' src={event.picture.startsWith("https") ? event.picture : `${import.meta.env.VITE_BACKEND_URL}/uploads/${event.picture}`} alt='' />
                         )}
@@ -189,7 +194,7 @@ const Home = () => {
                             See All
             </button>
           </div>
-          <div className='px-12'>
+          <div id='cities' className='px-12'>
             <div className="bg-[#FFE15D] mt-44 px-[68px] py-[74px] border rounded-3xl bg-[url('/src/assets/img/bubble.png')] bg-no-repeat bg-cover">
               <div className='bg-[#FD841F] mt-11 w-40 h-[30px] flex justify-center items-center rounded-full'>
                 <div className='flex justify-center items-center rounded-full border-none outline-none text-white bg-orange-400 border h-7 w-[150px] gap-3'>

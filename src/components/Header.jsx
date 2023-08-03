@@ -65,10 +65,10 @@ const Header = () => {
               <Link className='text-black fond-bold hover:text-primary hover:border-b-2 hover:border-primary' to='/'>Home</Link>
             </li>
             <li>
-              <Link className='text-black fond-bold hover:text-primary hover:border-b-2 hover:border-primary' to=''>Create Event</Link>
+              <Link className='text-black fond-bold hover:text-primary hover:border-b-2 hover:border-primary' to='/manage-events'>Create Event</Link>
             </li>
             <li>
-              <Link className='text-black fond-bold hover:text-primary hover:border-b-2 hover:border-primary' to=''>Location</Link>
+              <a className='text-black fond-bold hover:text-primary hover:border-b-2 hover:border-primary' href='#cities'>Location</a>
             </li>
           </ul>
         </div>
@@ -76,7 +76,6 @@ const Header = () => {
           <div className='flex text-lg items-center gap-3'>
             <div>
               <div className='inline-block rounded-full p-[2px] bg-gradient-to-r from-cyan-500 to-blue-500'>
-                {/* <img className='w-11 h-11 object-cover rounded-full border-2 border-white' src={`http://localhost:8888/uploads/${profile?.picture}`} alt='profile1' /> */}
                 {<Image className='w-12 h-12 object-cover border-4 border-white rounded-full' src={profile?.picture || null} defaultImg={defaultImage} />}
               </div>
             </div>

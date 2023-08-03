@@ -5,6 +5,7 @@ import { useSelector } from "react-redux"
 import React from "react"
 import http from "../helpers/http"
 import { FiEyeOff, FiEye } from "react-icons/fi"
+import { Helmet } from "react-helmet"
 
 const ChangePassword = () => {
   const token = useSelector(state => state.auth.token)
@@ -62,94 +63,101 @@ const ChangePassword = () => {
   return (
     <>
       <div>
-        <Header />
+        <Helmet>
+          <title>Change Password | OnceTicket</title>
+        </Helmet>
       </div>
-      <div className='flex gap-3'>
-        <Sidebar />
-        <main className='flex-1 my-12 text-sm'>
-          <div className='bg-gray-400 px-12 py-11 rounded-2xl mr-16 h-[750px]'>
-            <div className='font-bold tracking-wider mb-12 text-2xl'>Change Password</div>
-            <form onSubmit={doChangePassword} className='flex flex-col gap-8'>
-              {errorMessage && <div>{errorMessage}</div>}
-              {successMessage && <div>{successMessage}</div>}
-              <div className='flex items-center gap-16'>
-                <label className='w-40'>Old Password</label>
-                <div className='w-full form-control text-sm tracking[0.5] relative'>
-                  <input
-                    className={"input input-bordered w-full h-14 px-3 outline-[#C1C5D0] border-2 rounded-xl text-secondary"}
-                    type={inputOldPassword ? "text" : "password"}
-                    name='oldPassword'
-                    placeholder='Old Password'
-                  />
+      <div className='bg-[#F4F7FF]'>
+        <div>
+          <Header />
+        </div>
+        <div className='flex min-h-screen'>
+          <Sidebar />
+          <main className='p-8 w-full'>
+            <div className='flex flex-col bg-white p-8 rounded-md w-full'>
+              <div className='font-bold tracking-wider mb-12 text-2xl'>Change Password</div>
+              <form onSubmit={doChangePassword} className='flex flex-col gap-8'>
+                {errorMessage && <div>{errorMessage}</div>}
+                {successMessage && <div>{successMessage}</div>}
+                <div className='flex items-center gap-16'>
+                  <label className='w-40'>Old Password</label>
+                  <div className='w-full form-control text-sm tracking[0.5] relative'>
+                    <input
+                      className={"input input-bordered w-full h-14 px-3 outline-[#C1C5D0] border-2 rounded-xl text-secondary"}
+                      type={inputOldPassword ? "text" : "password"}
+                      name='oldPassword'
+                      placeholder='Old Password'
+                    />
 
-                  <button type='button' onClick={handleOldPassword} className='absolute top-[18px] right-4 text-[#FD841F]'>
-                    {eyeIcon ? (
-                      <i className=''>
-                        <FiEyeOff size={20} />
-                      </i>
-                    ) : (
-                      <i className=''>
-                        <FiEye size={20} />
-                      </i>
-                    )}
-                  </button>
+                    <button type='button' onClick={handleOldPassword} className='absolute top-[18px] right-4 text-[#FD841F]'>
+                      {eyeIcon ? (
+                        <i className=''>
+                          <FiEyeOff size={20} />
+                        </i>
+                      ) : (
+                        <i className=''>
+                          <FiEye size={20} />
+                        </i>
+                      )}
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <div className='flex items-center gap-16'>
-                <label className='w-40'>New Password</label>
-                <div className='w-full form-control text-sm tracking[0.5] relative'>
-                  <input
-                    className={"input input-bordered w-full h-14 px-3 outline-[#C1C5D0] border-2 rounded-xl text-secondary"}
-                    type={inputNewPassword ? "text" : "password"}
-                    name='newPassword'
-                    placeholder='New Password'
-                  />
+                <div className='flex items-center gap-16'>
+                  <label className='w-40'>New Password</label>
+                  <div className='w-full form-control text-sm tracking[0.5] relative'>
+                    <input
+                      className={"input input-bordered w-full h-14 px-3 outline-[#C1C5D0] border-2 rounded-xl text-secondary"}
+                      type={inputNewPassword ? "text" : "password"}
+                      name='newPassword'
+                      placeholder='New Password'
+                    />
 
-                  <button type='button' onClick={handleNewPassword} className='absolute top-[18px] right-4 text-[#FD841F]'>
-                    {eyeIconNewPass ? (
-                      <i className=''>
-                        <FiEyeOff size={20} />
-                      </i>
-                    ) : (
-                      <i className=''>
-                        <FiEye size={20} />
-                      </i>
-                    )}
-                  </button>
+                    <button type='button' onClick={handleNewPassword} className='absolute top-[18px] right-4 text-[#FD841F]'>
+                      {eyeIconNewPass ? (
+                        <i className=''>
+                          <FiEyeOff size={20} />
+                        </i>
+                      ) : (
+                        <i className=''>
+                          <FiEye size={20} />
+                        </i>
+                      )}
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <div className='flex items-center gap-16'>
-                <label className='w-40'>Confirm Password</label>
-                <div className='w-full form-control text-sm tracking[0.5] relative'>
-                  <input
-                    className={"input input-bordered w-full h-14 px-3 outline-[#C1C5D0] border-2 rounded-xl text-secondary"}
-                    type={inputConfirmPassword ? "text" : "password"}
-                    name='confirmPassword'
-                    placeholder='Confirm Password'
-                  />
+                <div className='flex items-center gap-16'>
+                  <label className='w-40'>Confirm Password</label>
+                  <div className='w-full form-control text-sm tracking[0.5] relative'>
+                    <input
+                      className={"input input-bordered w-full h-14 px-3 outline-[#C1C5D0] border-2 rounded-xl text-secondary"}
+                      type={inputConfirmPassword ? "text" : "password"}
+                      name='confirmPassword'
+                      placeholder='Confirm Password'
+                    />
 
-                  <button type='button' onClick={handelConfirmPassword} className='absolute top-[18px] right-4 text-[#FD841F]'>
-                    {eyeIconConfPass ? (
-                      <i className=''>
-                        <FiEyeOff size={20} />
-                      </i>
-                    ) : (
-                      <i className=''>
-                        <FiEye size={20} />
-                      </i>
-                    )}
-                  </button>
+                    <button type='button' onClick={handelConfirmPassword} className='absolute top-[18px] right-4 text-[#FD841F]'>
+                      {eyeIconConfPass ? (
+                        <i className=''>
+                          <FiEyeOff size={20} />
+                        </i>
+                      ) : (
+                        <i className=''>
+                          <FiEye size={20} />
+                        </i>
+                      )}
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <button type='submit' className='bg-[#FD841F] h-14 w-full rounded-2xl text-white shadow-lg shadow-orange-500/50'>Update</button>
-              </div>
-            </form>
-          </div>
-        </main>
-      </div>
-      <div>
-        <Footer />
+                <div>
+                  <button type='submit' className='bg-[#FD841F] h-14 w-full rounded-2xl text-white shadow-lg shadow-orange-500/50'>Update</button>
+                </div>
+              </form>
+            </div>
+          </main>
+        </div>
+        <div>
+          <Footer />
+        </div>
       </div>
     </>
   )
