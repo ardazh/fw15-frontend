@@ -17,10 +17,12 @@ const Home = () => {
   const [categories, setCategories] = React.useState([])
   const [eventCategories, setEventCategories] = React.useState([])
   const [partners, setPartners] = React.useState([])
+
   async function getDataEventCategory(name) {
     const { data } = await http().get("/events?limit=3", { params: { searchCategory: name } })
     setEventCategories(data.results)
   }
+  
   React.useEffect(() => {
     async function getData() {
       const { data } = await http().get("/events")
@@ -51,7 +53,8 @@ const Home = () => {
     <>
       <div>
         <Helmet>
-          <title>Home | OnceTicket</title>
+          <title>My Title</title>
+          <meta name='home' content='home' />
         </Helmet>
       </div>
       <div className='h-screen bg-primary'>
