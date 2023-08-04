@@ -211,7 +211,7 @@ const Home = () => {
               </div>
               <div className='h-[580px] lg:h-auto overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 lg:gap-12 xl:gap-16'>
                 <div>
-                  <div className='text-4xl flex flex-col tracking-wide w-[214px] mt-6 py-1 tracking-wide'>
+                  <div className='text-4xl flex flex-col w-[214px] mt-6 py-1 tracking-wide'>
                                         Discover<br /> Events<br /> Near You<br />
                   </div>
                 </div>
@@ -302,7 +302,7 @@ const Home = () => {
             </div>
           </div>
           <div className="flex flex-col w-full items-center h-[450px] bg-[#FD841F] mt-44 bg-[url('/src/assets/img/bubble.png')] bg-no-repeat bg-cover">
-            <div className='flex justify-center items-center rounded-full border-none outline-none text-white bg-orange-400 border h-7 w-[150px] gap-3 mt-[85px] text-[#FFFFFF]'>
+            <div className='flex justify-center items-center rounded-full border-none outline-none text-white bg-orange-400 border h-7 w-[150px] gap-3 mt-[85px]'>
               <i>
                 <HiOutlineMinus size={40} />
               </i>
