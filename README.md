@@ -5,7 +5,7 @@ OnceTicket App is a web application that helps you to order the events you want,
 
 
 ## Screenshoots
-![Screenshot](https://github.com/ardazh/fw15-frontend/assets/img/ardanaz-frontend.netlify.app_.png)
+![Screenshot]<img src="src/assets/img/ardanaz-frontend.netlify.app_.png"/>
 ![Screenshot](https://github.com/ardazh/fw15-frontend/assets/img/ardanaz-frontend.netlify.app_events.png)
 ![Screenshot](https://github.com/ardazh/fw15-frontend/assets/img/ardanaz-frontend.netlify.app_profile.png)
 ![Screenshot](https://github.com/ardazh/fw15-frontend/assets/img/ardanaz-frontend.netlify.app_checkout.png)
@@ -26,9 +26,6 @@ OnceTicket App is a web application that helps you to order the events you want,
 - [Formik](https://formik.org/)
 ## Run Locally
 Clone the project
-
-```bash
-  Clone the project
 
 ```bash
   https://github.com/ardazh/fw15-frontend
