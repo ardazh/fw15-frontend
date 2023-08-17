@@ -48,7 +48,6 @@ Start the server
 ```bash
   npm run dev
 ```
-```
 
 Go to the project directory
 
