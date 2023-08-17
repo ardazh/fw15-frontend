@@ -5,10 +5,10 @@ OnceTicket App is a web application that helps you to order the events you want,
 
 
 ## Screenshoots
-- Home Page<img src="src/assets/img/ardanaz-frontend.netlify.app_.png"/>
-- Events List<img src="src/assets/img/ardanaz-frontend.netlify.app_events.png"/>
-- Profile Page<img src="src/assets/img/ardanaz-frontend.netlify.app_profile.png"/>
-- Checkout Page<img src="src/assets/img/ardanaz-frontend.netlify.app_checkout.png"/>
+- Home Page<img src="src/assets/img/ss-home.png"/>
+- Events List<img src="src/assets/img/ss-events.png"/>
+- Profile Page<img src="src/assets/img/ss-profile.png"/>
+- Checkout Page<img src="src/assets/img/ss-checkout.png"/>
 ## Build With
 - [Frontend]()
 1. [ReactJS](https://reactnative.dev/)
